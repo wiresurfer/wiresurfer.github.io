@@ -148,6 +148,17 @@ div.card-text > h2 {
   flex-wrap: wrap;
 }
 
+/* Author avatar - fix clipping */
+.md-post-meta .avatar,
+.blog-card-meta .avatar,
+.md-author__image {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 .md-post-meta .date,
 .blog-card-date {
   font-weight: 500;
@@ -164,7 +175,18 @@ div.card-text > h2 {
   color: #888;
 }
 
+/* Multiple tags handling - wrap and space properly */
+.md-post-meta .tags,
+.md-post-meta .categories,
+.blog-card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-left: auto; /* Push tags to right */
+}
+
 .md-post-meta .category,
+.md-post-meta .tag,
 .blog-card-category,
 .md-tag {
   background-color: rgba(255, 107, 53, 0.15);
@@ -173,7 +195,7 @@ div.card-text > h2 {
   border-radius: 2px;
   font-weight: 600;
   font-size: 12px;
-  margin-left: auto; /* Push to right */
+  white-space: nowrap; /* Prevent tag text from wrapping */
 }
 
 /* Blog card title */
@@ -189,7 +211,7 @@ div.card-text > h2 {
   color: #fff;
 }
 
-/* Blog card excerpt */
+/* Blog card excerpt - fix alignment */
 .md-post-excerpt,
 .blog-card-excerpt,
 .card-text > p {
@@ -203,6 +225,8 @@ div.card-text > h2 {
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-top: var(--spacing-sm);
+  text-align: left; /* Ensure left alignment */
+  width: 100%; /* Take full width */
 }
 
 /* Blog card container */

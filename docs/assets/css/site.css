@@ -108,9 +108,17 @@ ul.md-tabs__list {
   text-rendering: optimizelegibility !important;
 }
 
+/* Left sidebar - removed weird margins */
+.md-sidebar--primary {
+  background-color: transparent; /* Remove weird background */
+  box-shadow: none; /* Remove drop shadow */
+  padding-top: 0; /* Remove weird top margin */
+}
+
 .md-sidebar--secondary {
-  margin-left: 10ch;
-  left: 5ch;
+  /* Removed weird margin-left and left positioning */
+  margin-left: 0;
+  left: auto;
 }
 
 a[href^="http://"]:not(:where(
@@ -250,10 +258,23 @@ nav[aria-label="Pagination"] .disabled {
   top: 20px;
 }
 
+/* Fix TOC overlap at medium breakpoints */
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .md-sidebar--secondary {
+    display: none; /* Hide TOC at problematic sizes */
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .md-sidebar--secondary {
+    width: 220px; /* Ensure proper width */
+  }
+}
+
 .md-nav--secondary .md-nav__link,
 .toc a,
 nav.toc a {
-  color: #4dd0e1; /* Cyan for ToC links */
+  color: #999; /* Muted gray instead of cyan/magenta */
   text-decoration: none;
   transition: all 0.2s ease;
   display: block;
@@ -268,7 +289,7 @@ nav.toc a {
 .toc a:hover,
 nav.toc a:hover {
   color: #fff;
-  background-color: rgba(77, 208, 225, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
   text-decoration: none;
 }
 

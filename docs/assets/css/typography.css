@@ -84,9 +84,9 @@ h2#further-reading + ol {
 
 .md-typeset ul:not(.task-list),
 .md-typeset ol {
-  margin-left: 1.5rem;
+  margin-left: 0.5rem; /* Reduced from 1.5rem */
   margin-bottom: var(--spacing-md); /* Task 1.5: Consistent spacing */
-  padding-left: 1.5em; /* Task 1.5: Improved indentation */
+  padding-left: 1.25em; /* Reduced from 1.5em */
 }
 
 .md-typeset ul:not(.task-list) li::marker {
@@ -100,6 +100,56 @@ h2#further-reading + ol {
   color: #7dbd9a;
   font-size: 14px;
   font-weight: bolder;
+}
+
+/* Task list checkbox styling - Claude Code style */
+.md-typeset ul.task-list {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.md-typeset ul.task-list li {
+  position: relative;
+  padding-left: 1.75em;
+}
+
+.md-typeset ul.task-list li input[type="checkbox"] {
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  width: 1.25em;
+  height: 1.25em;
+  margin: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  border: 2px solid #666;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.md-typeset ul.task-list li input[type="checkbox"]:hover {
+  border-color: #999;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.md-typeset ul.task-list li input[type="checkbox"]:checked {
+  background-color: #ff9800;
+  border-color: #ff9800;
+}
+
+.md-typeset ul.task-list li input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #1a1a1a;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 
 /* Anthropic-style: Use font-weight for emphasis, not font-family changes */
@@ -779,7 +829,8 @@ pre:hover .copy-code {
 
 .post-content blockquote {
   margin: var(--spacing-lg) 0; /* Task 2.2: 24px top and bottom */
-  padding: var(--spacing-md) var(--spacing-lg); /* Task 2.2: 16px 24px */
+  padding: var(--spacing-md); /* Reduced padding: 16px all around */
+  padding-left: var(--spacing-md); /* Keep left padding minimal */
   border-inline-start: 4px solid #ff9800; /* Task 2.2: Orange accent */
   background-color: rgba(255, 255, 255, 0.02); /* Task 2.2: Subtle background */
   font-style: italic; /* Task 2.2: Emphasize quoted text */
