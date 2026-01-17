@@ -115,24 +115,35 @@ div.card-text > h2 {
   min-height: 2rem;
   margin-top: 8px!important;
 }
-.card-text > p {
-  /* font-family: monospace; */
-  /* letter-spacing: normal; */
+/* OLD card-text styles - keep for legacy support */
+.card-text > p.text-lg {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  /* font-size: 14px; */
-  /* letter-spacing: 0px; */
   line-height: 18px;
   margin-top: 8px;
   color: #7c7d85;
   font-weight: 400;
 }
 
+/* Remove pr-5 padding-right that causes left-stuck appearance */
+.card-text > p.pr-5,
+.text-lg.pr-5 {
+  padding-right: 0 !important;
+}
+
+/* Ensure card has consistent padding */
+.card-text,
+.md-post-content,
+.blog-card-content {
+  padding: var(--spacing-md);
+}
+
 .md-post.md-post--excerpt a.block.group {
   margin: 4px 0 0px;
+  display: block; /* Ensure proper display */
 }
 
 /* Task 4.2: Blog Card Metadata Layout and Spacing */
