@@ -10,8 +10,75 @@
 }
 
 /* BLOG ARTICLE CARD LIST */
+
+/* Task 4.3: Blog Card Grid Layout */
+.md-blog-grid,
+.blog-grid,
+.grid.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin: var(--spacing-xl) 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .md-blog-grid,
+  .blog-grid,
+  .grid.cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .md-blog-grid,
+  .blog-grid,
+  .grid.cards {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Task 4.1: Standardized Featured Image Aspect Ratio */
+.bg-cover,
+.md-post-image,
+.blog-card-image,
+.featured-image {
+  aspect-ratio: 16 / 9; /* Enforce 16:9 ratio */
+  object-fit: cover; /* Crop to fit */
+  object-position: center top; /* Prioritize top of image */
+  width: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+  background-color: #1a1a1a; /* Fallback color */
+}
+
+/* Fallback for browsers without aspect-ratio support */
+@supports not (aspect-ratio: 16 / 9) {
+  .bg-cover,
+  .md-post-image,
+  .blog-card-image,
+  .featured-image {
+    padding-bottom: 56.25%; /* 16:9 ratio */
+    height: 0;
+    position: relative;
+  }
+
+  .bg-cover img,
+  .md-post-image img,
+  .blog-card-image img,
+  .featured-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Remove min-height to let aspect-ratio control size */
 .bg-cover {
-  min-height: 240px;
+  min-height: auto;
 }
 
 .line-clamp-2,
@@ -66,6 +133,103 @@ div.card-text > h2 {
 
 .md-post.md-post--excerpt a.block.group {
   margin: 4px 0 0px;
+}
+
+/* Task 4.2: Blog Card Metadata Layout and Spacing */
+.md-post-meta,
+.blog-card-meta,
+.card-metadata {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: var(--spacing-sm) 0 var(--spacing-sm);
+  font-size: 13px;
+  color: #888;
+  flex-wrap: wrap;
+}
+
+.md-post-meta .date,
+.blog-card-date {
+  font-weight: 500;
+  color: #999;
+}
+
+.md-post-meta .separator,
+.blog-card-separator {
+  color: #555;
+}
+
+.md-post-meta .read-time,
+.blog-card-read-time {
+  color: #888;
+}
+
+.md-post-meta .category,
+.blog-card-category,
+.md-tag {
+  background-color: rgba(255, 107, 53, 0.15);
+  color: #ff6b35;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 12px;
+  margin-left: auto; /* Push to right */
+}
+
+/* Blog card title */
+.md-post-title,
+.blog-card-title,
+.card-text > h1,
+.card-text > h2 {
+  font-family: var(--font-sans);
+  font-size: 18px !important;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm) !important;
+  line-height: 1.4;
+  color: #fff;
+}
+
+/* Blog card excerpt */
+.md-post-excerpt,
+.blog-card-excerpt,
+.card-text > p {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: #999;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Show 3 lines max */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: var(--spacing-sm);
+}
+
+/* Blog card container */
+.md-post,
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #1a1a1a;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.md-post:hover,
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Inner content wrapper */
+.md-post-content,
+.blog-card-content {
+  padding: var(--spacing-md);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Task 1.6: Nested List Visual Hierarchy */
