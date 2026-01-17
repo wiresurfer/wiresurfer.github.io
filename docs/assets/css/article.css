@@ -17,12 +17,13 @@ article.md-content__inner.md-typeset {
 }
 
 article.md-content p {
-  margin-bottom: 0.8rem;
+  margin-bottom: var(--spacing-md); /* Task 1.2: Use spacing system */
   text-wrap: pretty;
   overflow-wrap: break-word;
   letter-spacing: 0.03em;
-  font-size: 16px;
+  font-size: 17px; /* Task 1.2: Increased from 16px */
   font-weight: 100;
+  line-height: 1.75; /* Task 1.2: Increased from implicit 1.5 */
 }
 
 article.md-content blockquote > p {
@@ -35,7 +36,12 @@ article.md-content blockquote {
   font-weight: 100;
   text-wrap: pretty;
   overflow-wrap: break-word;
-  border-left-color: var(--md-typeset-a-color);
+  border-left-color: #ff9800; /* Task 2.2: Orange accent color */
+  background-color: rgba(255, 255, 255, 0.02); /* Task 2.2: Subtle background */
+  font-style: italic; /* Task 2.2: Emphasize quoted text */
+  color: #999; /* Task 2.2: Slightly muted */
+  padding: var(--spacing-md) var(--spacing-lg); /* Task 2.2: Consistent padding */
+  margin: var(--spacing-lg) 0; /* Task 2.2: Consistent margins */
 }
 
 .md-tag {

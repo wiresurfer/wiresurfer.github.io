@@ -16,6 +16,14 @@
   --code-bg: rgb(245, 245, 245);
   --border: rgb(238, 238, 238);
   --link: #0b82b9;
+
+  /* Spacing System - Task 1.1 */
+  --spacing-xs: 0.25rem;  /* 4px - Minimal spacing, inner padding */
+  --spacing-sm: 0.5rem;   /* 8px - Small gaps, list items */
+  --spacing-md: 1rem;     /* 16px - Default spacing, paragraph margins */
+  --spacing-lg: 1.5rem;   /* 24px - Section spacing, image margins */
+  --spacing-xl: 2rem;     /* 32px - Large section breaks, heading top margin */
+  --spacing-2xl: 3rem;    /* 48px - Major section divisions */
 }
 
 .dark {
@@ -62,11 +70,15 @@ h2#further-reading + ol {
   margin-left: 0.5rem;
   padding-left: 8px;
   font-size: 16px;
+  margin-bottom: var(--spacing-sm); /* Task 1.5: Improved spacing */
+  line-height: 1.7; /* Task 1.5: Match body text */
 }
 
 .md-typeset ul:not(.task-list),
 .md-typeset ol {
   margin-left: 1.5rem;
+  margin-bottom: var(--spacing-md); /* Task 1.5: Consistent spacing */
+  padding-left: 1.5em; /* Task 1.5: Improved indentation */
 }
 
 .md-typeset ul:not(.task-list) li::marker {
@@ -527,17 +539,29 @@ pre:hover .copy-code {
 }
 
 .post-content h1 {
-  margin: 40px auto 32px;
+  margin-top: 40px;
+  margin-bottom: 1.5em; /* Task 1.4: Standardized spacing */
   font-size: 40px;
+  line-height: 1.4; /* Task 1.4: Improved readability */
 }
 
 .post-content h2 {
-  margin: 32px auto 24px;
-  font-size: 32px;
+  margin-top: var(--spacing-xl); /* Task 1.4: 2rem / 32px */
+  margin-bottom: var(--spacing-lg); /* Task 1.4: 1.5rem / 24px */
+  font-size: 1.75em; /* Task 1.4: Relative sizing */
+  line-height: 1.4; /* Task 1.4: Improved readability */
 }
 
 .post-content h3 {
-  font-size: 24px;
+  margin-top: 1.2em; /* Task 1.4: Standardized spacing */
+  margin-bottom: 0.6em; /* Task 1.4: Standardized spacing */
+  font-size: 1.25em; /* Task 1.4: Relative sizing */
+  line-height: 1.4; /* Task 1.4: Improved readability */
+}
+
+/* Task 1.4: Reduce top margin when heading follows heading */
+.post-content h2 + h3 {
+  margin-top: 0.8em;
 }
 
 .post-content h4 {
@@ -580,10 +604,29 @@ pre:hover .copy-code {
 .post-content ol,
 .post-content ul {
   padding-inline-start: 20px;
+  margin-bottom: var(--spacing-md); /* Task 1.5: Consistent spacing */
 }
 
 .post-content li {
-  margin-top: 5px;
+  margin-bottom: var(--spacing-sm); /* Task 1.5: Improved spacing (0.5em) */
+  line-height: 1.7; /* Task 1.5: Match body text */
+}
+
+/* Task 1.5: Reduce spacing for nested lists */
+.post-content li ul,
+.post-content li ol {
+  margin-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Task 1.5: Add spacing between lists and following content */
+.post-content ul + p,
+.post-content ol + p,
+.post-content ul + h2,
+.post-content ol + h2,
+.post-content ul + h3,
+.post-content ol + h3 {
+  margin-top: var(--spacing-lg);
 }
 
 .post-content li p {
@@ -641,9 +684,13 @@ pre:hover .copy-code {
 
 .post-content .highlight:not(table),
 .post-content pre {
-  margin: 10px auto;
-  background: var(--hljs-bg) !important;
-  border-radius: var(--radius);
+  margin: var(--spacing-lg) 0; /* Task 2.1: 24px top and bottom */
+  background: #252526 !important; /* Task 2.1: Slightly darker background */
+  border-radius: 6px; /* Task 2.1: Slightly larger radius */
+  padding: 28px; /* Task 2.1: Generous padding */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Task 2.1: Subtle border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Task 2.1: Depth shadow */
+  overflow-x: auto; /* Task 2.1: Handle long lines */
 }
 
 .post-content li > .highlight {
@@ -681,11 +728,13 @@ pre:hover .copy-code {
 
 .post-content code {
   margin: auto 4px;
-  padding: 4px 6px;
-  font-size: 0.78em;
+  padding: 0.2em 0.4em; /* Task 1.3: Improved padding */
+  font-size: 0.95em; /* Task 1.3: Increased from 0.78em */
   line-height: 1.5;
-  background: var(--code-bg);
-  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.05); /* Task 1.3: Subtle background */
+  border: 1px solid rgba(95, 181, 132, 0.2); /* Task 1.3: Added border */
+  border-radius: 3px; /* Task 1.3: Slightly increased */
+  color: #5fb584; /* Task 1.3: Green color for code */
 }
 
 .post-content pre code {
@@ -693,16 +742,46 @@ pre:hover .copy-code {
   margin: auto 0;
   padding: 10px;
   color: #d5d5d6;
-  background: 0 0;
+  background: transparent; /* Task 1.3: Prevent double styling */
+  border: none; /* Task 1.3: Prevent double styling */
   border-radius: 0;
   overflow-x: auto;
   word-break: break-all;
+  font-size: 14px; /* Task 1.3: Reset font size for code blocks */
+  line-height: 1.6; /* Task 1.3: Improved line-height for code blocks */
 }
 
 .post-content blockquote {
-  margin: 20px 0;
-  padding: 0 14px;
-  border-inline-start: 3px solid var(--primary);
+  margin: var(--spacing-lg) 0; /* Task 2.2: 24px top and bottom */
+  padding: var(--spacing-md) var(--spacing-lg); /* Task 2.2: 16px 24px */
+  border-inline-start: 4px solid #ff9800; /* Task 2.2: Orange accent */
+  background-color: rgba(255, 255, 255, 0.02); /* Task 2.2: Subtle background */
+  font-style: italic; /* Task 2.2: Emphasize quoted text */
+  color: #999; /* Task 2.2: Slightly muted */
+  border-radius: 0 4px 4px 0; /* Task 2.2: Rounded right side */
+}
+
+.post-content blockquote p {
+  margin: 0;
+  line-height: 1.7; /* Task 2.2: Match body text */
+}
+
+.post-content blockquote p + p {
+  margin-top: var(--spacing-sm);
+}
+
+/* Task 2.2: Style attribution/citation */
+.post-content blockquote cite,
+.post-content blockquote footer {
+  display: block;
+  margin-top: var(--spacing-sm);
+  font-style: normal;
+  font-size: 0.9em;
+  color: #777;
+}
+
+.post-content blockquote cite::before {
+  content: "— ";
 }
 
 .post-content hr {
@@ -1019,9 +1098,25 @@ h6:hover .anchor {
   transform: scale(0.96);
 }
 
+/* Task 2.3: Enhanced Syntax Highlighting */
 .hljs-comment,
 .hljs-quote {
-  color: #b6b18b;
+  color: #666; /* Task 2.3: Gray for comments */
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in,
+.hljs-literal {
+  color: #ff9800; /* Task 2.3: Orange for keywords */
+}
+
+.hljs-addition,
+.hljs-bullet,
+.hljs-string,
+.hljs-symbol {
+  color: #5fb584; /* Task 2.3: Green for strings */
 }
 
 .hljs-deletion,
@@ -1031,30 +1126,19 @@ h6:hover .anchor {
 .hljs-selector-id,
 .hljs-tag,
 .hljs-template-variable,
-.hljs-variable {
-  color: #eb3c54;
+.hljs-variable,
+.hljs-params {
+  color: #4dd0e1; /* Task 2.3: Cyan for variables */
 }
 
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-link,
-.hljs-literal,
-.hljs-meta,
 .hljs-number,
-.hljs-params,
+.hljs-meta,
 .hljs-type {
-  color: #e7ce56;
+  color: #ffd700; /* Task 2.3: Yellow for numbers */
 }
 
 .hljs-attribute {
   color: #ee7c2b;
-}
-
-.hljs-addition,
-.hljs-bullet,
-.hljs-string,
-.hljs-symbol {
-  color: #4fb4d7;
 }
 
 .hljs-section,
@@ -1062,9 +1146,18 @@ h6:hover .anchor {
   color: #78bb65;
 }
 
-.hljs-keyword,
-.hljs-selector-tag {
-  color: #b45ea4;
+.hljs-builtin-name,
+.hljs-link {
+  color: #4dd0e1;
+}
+
+/* Operators and punctuation */
+.hljs-operator {
+  color: #999;
+}
+
+.hljs-punctuation {
+  color: #ccc;
 }
 
 .hljs {
@@ -1599,12 +1692,12 @@ mark {
 
 .md-content__inner p {
   color: var(--md-typeset-color);
-  font-size: 16px; /* Silence is golden; implicity 1em */
-  line-height: 1.5;
+  font-size: 17px; /* Task 1.2: Increased from 16px */
+  line-height: 1.75; /* Task 1.2: Increased from 1.5 */
   hyphens: auto;
   text-align: justify;
   margin-top: 0.75em;
-  /* letter-spacing: 0.01em; /* Slight increase in letter spacing */
+  letter-spacing: 0.3px; /* Task 1.2: Slight improvement for dark theme */
   word-spacing: 0.05em; /* Improved word spacing */
   text-rendering: optimizeLegibility; /* Enables kerning and optional ligatures */
   -webkit-font-smoothing: antialiased; /* Smooth font rendering for WebKit browsers */

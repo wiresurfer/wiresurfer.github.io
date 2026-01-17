@@ -67,3 +67,29 @@ div.card-text > h2 {
 .md-post.md-post--excerpt a.block.group {
   margin: 4px 0 0px;
 }
+
+/* Task 1.6: Nested List Visual Hierarchy */
+/* Level 1: filled circle (default) */
+.md-typeset ul,
+.post-content ul {
+  list-style-type: disc;
+}
+
+/* Level 2: hollow circle */
+.md-typeset ul ul,
+.post-content ul ul {
+  list-style-type: circle;
+  margin-left: 1.5em;
+}
+
+/* Level 3: square */
+.md-typeset ul ul ul,
+.post-content ul ul ul {
+  list-style-type: square;
+}
+
+/* Level 4+: back to disc but with additional indent */
+.md-typeset ul ul ul ul,
+.post-content ul ul ul ul {
+  list-style-type: disc;
+}
