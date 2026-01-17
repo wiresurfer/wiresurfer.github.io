@@ -17,31 +17,34 @@ article.md-content__inner.md-typeset {
 }
 
 article.md-content p {
-  margin-bottom: var(--spacing-md); /* Task 1.2: Use spacing system */
+  margin-bottom: var(--spacing-md);
   text-wrap: pretty;
   overflow-wrap: break-word;
-  letter-spacing: 0.03em;
-  font-size: 17px; /* Task 1.2: Increased from 16px */
-  font-weight: 100;
-  line-height: 1.75; /* Task 1.2: Increased from implicit 1.5 */
+  font-family: var(--font-sans); /* Anthropic-style: Clean sans-serif */
+  font-size: 16px; /* Anthropic-style: Compact sizing */
+  font-weight: 400; /* Anthropic-style: Regular weight for readability */
+  line-height: 1.6; /* Anthropic-style: Compact but comfortable */
+  letter-spacing: -0.011em; /* Anthropic-style: Slight tightening */
+  text-align: left; /* Anthropic-style: Clean left alignment */
 }
 
 article.md-content blockquote > p {
-  font-size: 14px !important;
-  font-family: monospace;
-  font-weight: 100;
+  font-size: 15px !important; /* Anthropic-style: Slightly smaller than body */
+  font-family: var(--font-sans); /* Anthropic-style: Clean sans-serif */
+  font-weight: 400;
 }
 article.md-content blockquote {
-  font-size: 14px;
-  font-weight: 100;
+  font-family: var(--font-sans); /* Anthropic-style: Clean sans-serif */
+  font-size: 15px; /* Anthropic-style: Slightly smaller */
+  font-weight: 400;
   text-wrap: pretty;
   overflow-wrap: break-word;
-  border-left-color: #ff9800; /* Task 2.2: Orange accent color */
-  background-color: rgba(255, 255, 255, 0.02); /* Task 2.2: Subtle background */
-  font-style: italic; /* Task 2.2: Emphasize quoted text */
-  color: #999; /* Task 2.2: Slightly muted */
-  padding: var(--spacing-md) var(--spacing-lg); /* Task 2.2: Consistent padding */
-  margin: var(--spacing-lg) 0; /* Task 2.2: Consistent margins */
+  border-left-color: #ff9800; /* Orange accent */
+  background-color: rgba(255, 255, 255, 0.02);
+  font-style: italic;
+  color: #999;
+  padding: var(--spacing-md) var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
 }
 
 .md-tag {

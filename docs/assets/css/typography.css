@@ -17,6 +17,11 @@
   --border: rgb(238, 238, 238);
   --link: #0b82b9;
 
+  /* Anthropic-style font stack - Modern, clean sans-serif */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --default-font: var(--font-sans);
+
   /* Spacing System - Task 1.1 */
   --spacing-xs: 0.25rem;  /* 4px - Minimal spacing, inner padding */
   --spacing-sm: 0.5rem;   /* 8px - Small gaps, list items */
@@ -69,9 +74,12 @@ h2#further-reading + ol {
 .md-typeset ol > li {
   margin-left: 0.5rem;
   padding-left: 8px;
+  font-family: var(--font-sans); /* Anthropic-style: Clean sans-serif */
   font-size: 16px;
-  margin-bottom: var(--spacing-sm); /* Task 1.5: Improved spacing */
-  line-height: 1.7; /* Task 1.5: Match body text */
+  font-weight: 400; /* Anthropic-style: Regular weight */
+  margin-bottom: var(--spacing-sm); /* Compact spacing */
+  line-height: 1.6; /* Anthropic-style: Compact but readable */
+  letter-spacing: -0.011em;
 }
 
 .md-typeset ul:not(.task-list),
@@ -94,14 +102,26 @@ h2#further-reading + ol {
   font-weight: bolder;
 }
 
+/* Anthropic-style: Use font-weight for emphasis, not font-family changes */
+.md-typeset strong,
 .md-typeset b,
 strong,
+b {
+  font-family: var(--font-sans);
+  font-weight: 600; /* Anthropic-style: Semibold for strong emphasis */
+  font-size: inherit;
+  letter-spacing: -0.011em;
+  color: #e8e8e8; /* Slightly brighter for emphasis */
+}
+
+.md-typeset em,
 em {
-  font-family: monospace;
-  font-weight: 100;
-  font-size: 16px;
-  letter-spacing: 0px;
-  color: #a6da95;
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-weight: 400; /* Regular weight for italic */
+  font-size: inherit;
+  letter-spacing: -0.011em;
+  color: #d8d8d8;
 }
 
 a {
@@ -608,8 +628,11 @@ pre:hover .copy-code {
 }
 
 .post-content li {
-  margin-bottom: var(--spacing-sm); /* Task 1.5: Improved spacing (0.5em) */
-  line-height: 1.7; /* Task 1.5: Match body text */
+  font-family: var(--font-sans); /* Anthropic-style: Clean sans-serif */
+  font-weight: 400;
+  margin-bottom: var(--spacing-sm); /* Compact spacing */
+  line-height: 1.6; /* Anthropic-style: Compact but readable */
+  letter-spacing: -0.011em;
 }
 
 /* Task 1.5: Reduce spacing for nested lists */
@@ -728,13 +751,16 @@ pre:hover .copy-code {
 
 .post-content code {
   margin: auto 4px;
-  padding: 0.2em 0.4em; /* Task 1.3: Improved padding */
-  font-size: 0.95em; /* Task 1.3: Increased from 0.78em */
+  padding: 0.2em 0.4em;
+  font-family: var(--font-mono); /* Anthropic-style: Use mono stack */
+  font-size: 0.9em; /* Anthropic-style: Slightly smaller, compact */
+  font-weight: 400;
   line-height: 1.5;
-  background: rgba(255, 255, 255, 0.05); /* Task 1.3: Subtle background */
-  border: 1px solid rgba(95, 181, 132, 0.2); /* Task 1.3: Added border */
-  border-radius: 3px; /* Task 1.3: Slightly increased */
-  color: #5fb584; /* Task 1.3: Green color for code */
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(95, 181, 132, 0.2);
+  border-radius: 3px;
+  color: #5fb584; /* Green for code */
+  letter-spacing: 0; /* Monospace doesn't need tightening */
 }
 
 .post-content pre code {
@@ -1692,21 +1718,24 @@ mark {
 
 .md-content__inner p {
   color: var(--md-typeset-color);
-  font-size: 17px; /* Task 1.2: Increased from 16px */
-  line-height: 1.75; /* Task 1.2: Increased from 1.5 */
+  font-family: var(--font-sans); /* Anthropic-style: Use clean sans-serif */
+  font-size: 16px; /* Anthropic-style: Compact sizing */
+  font-weight: 400; /* Anthropic-style: Regular weight for body */
+  line-height: 1.6; /* Anthropic-style: Compact but readable */
   hyphens: auto;
-  text-align: justify;
-  margin-top: 0.75em;
-  letter-spacing: 0.3px; /* Task 1.2: Slight improvement for dark theme */
-  word-spacing: 0.05em; /* Improved word spacing */
-  text-rendering: optimizeLegibility; /* Enables kerning and optional ligatures */
-  -webkit-font-smoothing: antialiased; /* Smooth font rendering for WebKit browsers */
-  -moz-osx-font-smoothing: grayscale; /* Smooth font rendering for macOS Firefox */
-  hanging-punctuation: first; /* Allows punctuation to hang in the margin for optical alignment */
+  text-align: left; /* Anthropic-style: Left-aligned for clean look */
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  letter-spacing: -0.011em; /* Anthropic-style: Slight tightening for modern look */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Anthropic-style: No text indent, clean spacing */
 p + p {
-  text-indent: 0.5em;
+  margin-top: var(--spacing-sm);
+  text-indent: 0;
 }
 
 h1 + p:first-letter {

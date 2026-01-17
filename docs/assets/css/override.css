@@ -58,9 +58,8 @@ md-main__inner  {
 .md-content h4,
 .md-content h5,
 .md-content h6 {
-  font-family: var(--default-font);
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  font-family: var(--font-sans); /* Anthropic-style: Clean sans-serif */
+  letter-spacing: -0.02em; /* Anthropic-style: Tight letter spacing */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -72,62 +71,57 @@ md-main__inner  {
 .markdown-preview-section h1,
 .cm-header-1 {
   color: var(--text-title-h1);
-  font-size: 42px;
-  font-weight: 800;
-  font-style: oblique;
-  margin-top: 0.5rem;
-  border-bottom: 1px solid var(--text-accent);
-  padding-bottom: 21px;
+  font-size: 32px; /* Anthropic-style: More compact than 42px */
+  font-weight: 700; /* Anthropic-style: Bold but not too heavy */
+  font-style: normal; /* Anthropic-style: Clean, not oblique */
+  line-height: 1.2;
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  border-bottom: none; /* Anthropic-style: Clean, no border */
+  padding-bottom: 0;
 }
 
 .md-content h2,
 .post-content h2,
 .markdown-preview-section h2,
 .cm-header-2 {
-  font-size: 20px;
-  color: #bac2de;
-  margin-top: 2rem;
-  border-left: 4px solid var(--text-accent);
-  padding-left: 16px;
-  font-weight: 500;
+  font-size: 24px; /* Anthropic-style: Clear hierarchy */
+  font-weight: 600; /* Anthropic-style: Semibold for sections */
+  line-height: 1.3;
+  color: #e0e0e0; /* Anthropic-style: Slightly muted white */
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-sm);
+  border-left: 3px solid var(--text-accent); /* Kept for visual distinction */
+  padding-left: var(--spacing-md);
 }
 
 .md-content h3,
 .post-content h3,
 .markdown-preview-section h3,
 .cm-header-3 {
-  counter-set: auto;
-  font-size: 18px;
-  color: #bac2de;
-  margin-top: 1.5rem;
-  /* text-decoration: underline; */
-  color: var(--text-title-hx);
-  /* border-left: 4px solid var(--text-title-h3); */
-  /* padding-left: 16px; */
-  font-weight: 100;
-  /* text-transform: uppercase; */
-  font-family: serif;
-  border-bottom: 1px solid var(--text-accent);
+  font-family: var(--font-sans); /* Anthropic-style: Sans-serif, not serif */
+  font-size: 20px; /* Anthropic-style: Clear step down */
+  font-weight: 600; /* Anthropic-style: Semibold */
+  line-height: 1.3;
+  color: #e0e0e0;
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+  border-bottom: none; /* Anthropic-style: Clean, no border */
 }
 
 .md-content h4,
 .post-content h4,
 .markdown-preview-section h4,
 .cm-header-4 {
-  counter-set: auto;
-  font-size: 16px;
-  color: #bac2de;
-  margin-top: 1.5rem;
-  /* text-decoration: underline; */
-  color: var(--text-title-hx);
-  /* border-left: 4px solid var(--text-title-h3); */
-  /* padding-left: 16px; */
-  font-weight: 100;
-  /* text-transform: uppercase; */
-  font-family: serif;
-  border-bottom: 1px solid var(--text-accent);
-  display: inline-block;
-  margin-bottom: 0rem;
+  font-family: var(--font-sans); /* Anthropic-style: Sans-serif, not serif */
+  font-size: 16px; /* Anthropic-style: Compact */
+  font-weight: 500; /* Anthropic-style: Medium weight */
+  line-height: 1.4;
+  color: #d0d0d0;
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  border-bottom: none; /* Anthropic-style: Clean, no border */
+  display: block; /* Not inline-block */
 }
 
 .md-content h5,
