@@ -121,7 +121,8 @@ ul.md-tabs__list {
   left: auto;
 }
 
-a[href^="http://"]:not(:where(
+/*
+ * a[href^="http://"]:not(:where(
   [href*="localhost"],
   [href*="blog.shaishav.kr/"],
 )):after,
@@ -138,7 +139,8 @@ a.md-social__link:after  {
   padding-left: 0;
   content: ""!important;
 }
-
+*/  
+  
 /* Task 3.1: Pagination Contrast and Accessibility */
 .md-pagination,
 .pagination,
