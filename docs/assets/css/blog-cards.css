@@ -18,7 +18,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
-  margin: var(--spacing-xl) 0;
+  margin: var(--spacing-lg) 0; /* 24px (mt-6) instead of 32px (mt-8) */
 }
 
 /* Responsive grid - moved to responsive.css */
@@ -262,6 +262,11 @@ a.card-overlay-link:focus-visible {
   border-radius: 6px;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Fix excessive bottom margin from MkDocs Material theme */
+.md-post--excerpt {
+  margin-bottom: 0;
 }
 
 .md-post:hover,
