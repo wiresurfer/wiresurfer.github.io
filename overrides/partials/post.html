@@ -31,124 +31,111 @@
       </nav>
     {% endif %}
 
-    <!-- Post metadata -->
-    <div class="md-post__meta md-meta" style="width: 100%">
-      <ul class="md-meta__list" style="display: flex; flex-grow: 1">
-        <!-- Post date -->
-        <li class="md-meta__item">
-          <div>
-            <time datetime="{{ post.config.date.created }}">
-              {{- post.config.date.created | date -}}
-            </time>
-            <br />
-            {#- Collapse whitespace -#}
-            {% if post.config.readtime %}
-              {%
-                set
-                time = post.config.readtime
-              %}
-              <time>
-                {% if time == 1 %}{{ lang.t("readtime.one") }}{% else %}{{ lang.t("readtime.other") | replace("#", time) }}{% endif %}
-              </time>
-            {% endif %}
-          </div>
-        </li>
-
-        <!-- Post categories -->
-        {% if post.categories %}
-          <li
-            class="md-meta__item"
-            style="
-            display: flex;
-            flex-grow: 1;
-            align-items: baseline;
-            align-content: end;
-            justify-content: flex-end;
-          "
-          >
-            <!-- {{ lang.t("blog.categories.in") }} -->
-            {% for category in post.categories %}
-              <a href="{{ category.url | url }}" class="md-meta__link" style="position: relative; pointer-events: auto; z-index: 11;">
-                {{- category.title -}}
-              </a>
-              {%- if loop.revindex > 1 %},{% endif -%}
-            {% endfor -%}
-          </li>
-        {% endif %}
-
-        <!-- Post readtime -->
-      </ul>
-
-      <!-- Draft marker -->
-      {% if post.config.draft %}
+    <!-- Draft marker -->
+    {% if post.config.draft %}
+      <div class="md-post__meta md-meta">
         <span class="md-draft"> {{ lang.t("blog.draft") }} </span>
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
   </header>
 
   <div class="card-text" style="position: relative; pointer-events: none;">{{ post.content }}</div>
 
-  <!-- Card actions -->
-  <div class="card-actions" style="position: relative; z-index: 11; pointer-events: auto; display: flex; gap: 0.5rem; margin-top: 0.75rem; justify-content: flex-end;">
-    <button
-      class="card-action-btn share-btn"
-      onclick="sharePost(event, '{{ config.site_url }}{{ post.url | url }}', '{{ post.title | replace("'", "\\'") }}')"
-      aria-label="Share this post"
-      title="Share this post"
-      style="
-        background: none;
-        border: 1px solid rgba(255, 152, 0, 0.3);
-        color: #999;
-        padding: 0.35rem 0.65rem;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.8rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        transition: all 0.2s ease;
-      "
-      onmouseover="this.style.borderColor='rgba(255, 152, 0, 0.6)'; this.style.color='#ff9800'"
-      onmouseout="this.style.borderColor='rgba(255, 152, 0, 0.3)'; this.style.color='#999'"
-    >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="18" cy="5" r="3"></circle>
-        <circle cx="6" cy="12" r="3"></circle>
-        <circle cx="18" cy="19" r="3"></circle>
-        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-      </svg>
-      Share
-    </button>
-    <a
-      href="{{ post.url | url }}"
-      class="card-action-btn read-more-btn"
-      aria-label="Read full post"
-      title="Read full post"
-      style="
-        background: none;
-        border: 1px solid rgba(255, 152, 0, 0.3);
-        color: #999;
-        padding: 0.35rem 0.65rem;
-        border-radius: 4px;
-        text-decoration: none;
-        font-size: 0.8rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        transition: all 0.2s ease;
-        position: relative;
-        z-index: 11;
-      "
-      onmouseover="this.style.borderColor='rgba(255, 152, 0, 0.6)'; this.style.color='#ff9800'"
-      onmouseout="this.style.borderColor='rgba(255, 152, 0, 0.3)'; this.style.color='#999'"
-    >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14"></path>
-        <path d="m12 5 7 7-7 7"></path>
-      </svg>
-      Read
-    </a>
+  <!-- Category pills -->
+  {% if post.categories %}
+  <div class="card-categories" style="position: relative; z-index: 11; pointer-events: auto; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem;">
+    {% set total_cats = post.categories | length %}
+    {% if total_cats == 1 %}
+      <a href="{{ post.categories[0].url | url }}" class="category-pill">{{ post.categories[0].title }}</a>
+    {% elif total_cats == 2 %}
+      <a href="{{ post.categories[0].url | url }}" class="category-pill">{{ post.categories[0].title }}</a>
+      <a href="{{ post.categories[1].url | url }}" class="category-pill">{{ post.categories[1].title }}</a>
+    {% else %}
+      <a href="{{ post.categories[0].url | url }}" class="category-pill">{{ post.categories[0].title }}</a>
+      <a href="{{ post.categories[1].url | url }}" class="category-pill">{{ post.categories[1].title }}</a>
+      <span class="category-pill category-more">+{{ total_cats - 2 }} more</span>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <!-- Card footer: date/time + actions -->
+  <div class="card-footer" style="position: relative; z-index: 11; pointer-events: auto; display: flex; align-items: center; justify-content: space-between; margin-top: 0.75rem; gap: 0.75rem;">
+    <!-- Left: Date and read time -->
+    <div class="card-meta" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: #666;">
+      <time datetime="{{ post.config.date.created }}" style="white-space: nowrap;">
+        {{- post.config.date.created | date -}}
+      </time>
+      {% if post.config.readtime %}
+        <span style="color: #444;">•</span>
+        {% set time = post.config.readtime %}
+        <time style="white-space: nowrap;">
+          {% if time == 1 %}{{ lang.t("readtime.one") }}{% else %}{{ lang.t("readtime.other") | replace("#", time) }}{% endif %}
+        </time>
+      {% endif %}
+    </div>
+
+    <!-- Right: Action buttons -->
+    <div class="card-actions" style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+      <button
+        class="card-action-btn share-btn"
+        onclick="sharePost(event, '{{ config.site_url }}{{ post.url | url }}', '{{ post.title | replace("'", "\\'") }}')"
+        aria-label="Share this post"
+        title="Share this post"
+        style="
+          background: none;
+          border: 1px solid rgba(255, 152, 0, 0.3);
+          color: #999;
+          padding: 0.35rem 0.65rem;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 0.8rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          transition: all 0.2s ease;
+        "
+        onmouseover="this.style.borderColor='rgba(255, 152, 0, 0.6)'; this.style.color='#ff9800'"
+        onmouseout="this.style.borderColor='rgba(255, 152, 0, 0.3)'; this.style.color='#999'"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        Share
+      </button>
+      <a
+        href="{{ post.url | url }}"
+        class="card-action-btn read-more-btn"
+        aria-label="Read full post"
+        title="Read full post"
+        style="
+          background: none;
+          border: 1px solid rgba(255, 152, 0, 0.3);
+          color: #999;
+          padding: 0.35rem 0.65rem;
+          border-radius: 4px;
+          text-decoration: none;
+          font-size: 0.8rem;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          transition: all 0.2s ease;
+          position: relative;
+          z-index: 11;
+        "
+        onmouseover="this.style.borderColor='rgba(255, 152, 0, 0.6)'; this.style.color='#ff9800'"
+        onmouseout="this.style.borderColor='rgba(255, 152, 0, 0.3)'; this.style.color='#999'"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+        Read
+      </a>
+    </div>
   </div>
 
   <!-- Post content -->
