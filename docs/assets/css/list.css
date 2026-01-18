@@ -134,16 +134,44 @@ div.card-text > h2 {
   padding-right: 0 !important;
 }
 
-/* Ensure card has consistent padding */
+/* Ensure card has balanced padding */
 .card-text,
 .md-post-content,
 .blog-card-content {
-  padding: var(--spacing-md);
+  padding: var(--spacing-md); /* 16px all around */
+  padding-left: 12px; /* Slightly less on left for better balance */
+  padding-right: 18px; /* Slightly more on right for better balance */
+  padding-bottom: var(--spacing-sm); /* Reduced bottom padding - was causing extra space */
 }
 
 .md-post.md-post--excerpt a.block.group {
   margin: 4px 0 0px;
-  display: block; /* Ensure proper display */
+  display: block;
+  /* Make entire card clickable */
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Ensure card link covers entire card */
+.md-post.md-post--excerpt {
+  position: relative;
+}
+
+.md-post.md-post--excerpt a.block.group::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+/* Ensure text elements are above the clickable overlay */
+.md-post.md-post--excerpt a.block.group * {
+  position: relative;
+  z-index: 2;
 }
 
 /* Task 4.2: Blog Card Metadata Layout and Spacing */
