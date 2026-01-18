@@ -1,17 +1,5 @@
 article.md-content__inner.md-typeset {
   flex-grow: 1;
-}
-
-article.md-content__inner.md-typeset {
-  max-width: 70% !important;
-  margin: 0 auto !important;
-}
-
-article.md-content__inner.md-typeset {
-  flex-grow: 1;
-}
-
-article.md-content__inner.md-typeset {
   max-width: 70% !important;
   margin: 0 auto !important;
 }
@@ -39,17 +27,18 @@ article.md-content blockquote {
   font-weight: 400;
   text-wrap: pretty;
   overflow-wrap: break-word;
-  border-left-color: #ff9800; /* Orange accent */
+  border-left: 4px solid #ff9800; /* Orange accent */
   background-color: rgba(255, 255, 255, 0.02);
   font-style: italic;
   color: #999;
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-md); /* 16px uniform padding */
   margin: var(--spacing-lg) 0;
 }
 
 .md-tag {
   color: #ff9800;
 }
+
 .md-content blockquote > a {
   font-weight: 300;
 }
@@ -58,15 +47,6 @@ article.md-typeset > p > img[src*=".svg"] {
   padding: 2rem;
   margin: 1rem 0;
   background-color: white;
-}
-
-article.md-typeset > blockquote {
-  color: var(--md-default-fg-color--light);
-  margin-left: 0;
-  margin-right: 0;
-  background: #1c1c1c;
-  padding: 6px 32px 12px 0px;
-  margin: 18px 3rem;
 }
 
 article.md-typeset > div.mermaid {

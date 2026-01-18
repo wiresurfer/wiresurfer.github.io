@@ -1,13 +1,16 @@
 <!-- Post excerpt -->
 <article class="md-post md-post--excerpt" style="position: relative;">
-  <a href="{{ post.url | url }}" class="card-overlay-link" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 1;"></a>
+  <a href="{{ post.url | url }}"
+     class="card-overlay-link"
+     aria-label="Read more: {{ post.title }}"
+     style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10;"></a>
 
   <div
     class="bg-cover bg-gray-900 relative bg-center rounded-md pb-[56%] overflow-hidden transition-transform hover:scale-[97.5%]"
     style='background-image: url("{{ post.meta.coverImage }}");'
   ></div>
 
-  <header class="md-post__header" style="position: relative; z-index: 2;">
+  <header class="md-post__header" style="position: relative; margin-top: -28px; pointer-events: none;">
     <!-- Post authors -->
     {% if post.authors %}
       <nav class="md-post__authors md-typeset">
@@ -65,7 +68,7 @@
           >
             <!-- {{ lang.t("blog.categories.in") }} -->
             {% for category in post.categories %}
-              <a href="{{ category.url | url }}" class="md-meta__link" style="position: relative; z-index: 3;">
+              <a href="{{ category.url | url }}" class="md-meta__link" style="position: relative; pointer-events: auto; z-index: 11;">
                 {{- category.title -}}
               </a>
               {%- if loop.revindex > 1 %},{% endif -%}
@@ -83,7 +86,7 @@
     </div>
   </header>
 
-  <div class="card-text" style="position: relative; z-index: 2; padding: 16px 18px 8px 12px;">{{ post.content }}</div>
+  <div class="card-text" style="position: relative; pointer-events: none;">{{ post.content }}</div>
 
   <!-- Post content -->
 </article>

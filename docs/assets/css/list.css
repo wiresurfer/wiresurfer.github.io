@@ -128,11 +128,10 @@ div.card-text > h2 {
   font-weight: 400;
 }
 
-/* Remove any Tailwind padding classes that cause left-stuck appearance */
-.card-text.pr-5,
-.card-text > p.pr-5,
-.text-lg.pr-5 {
-  padding-right: 0 !important;
+/* Card text padding - balanced and consistent */
+.card-text {
+  padding: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
 }
 
 /* Card overlay link styling */
@@ -143,6 +142,17 @@ a.card-overlay-link {
 
 a.card-overlay-link:hover {
   text-decoration: none;
+}
+
+/* Focus indicators for accessibility */
+a.card-overlay-link:focus-visible {
+  outline: 3px solid #ff9800;
+  outline-offset: -3px;
+}
+
+.md-meta__link:focus-visible {
+  outline: 2px solid #ff9800;
+  outline-offset: 2px;
 }
 
 /* Task 4.2: Blog Card Metadata Layout and Spacing */
@@ -158,26 +168,34 @@ a.card-overlay-link:hover {
   flex-wrap: wrap;
 }
 
-/* Author avatar - fix clipping */
+/* Blog card header - negative margin overlaps with image */
+.md-post__header {
+  position: relative;
+  z-index: 5;
+}
+
+/* Author avatar - fix clipping with border and larger size */
 .md-post-meta .avatar,
 .blog-card-meta .avatar,
 .md-author__image,
 .md-post__authors img,
 .md-author img {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
   display: inline-block;
-  overflow: visible; /* Prevent parent clipping */
+  border: 2px solid #1a1a1a;
+  background: #1a1a1a;
+  pointer-events: auto; /* Allow clicking avatar if needed */
 }
 
 /* Ensure avatar container doesn't clip */
 .md-post__authors,
 .md-author {
   overflow: visible;
-  line-height: 0; /* Remove extra line-height space */
+  line-height: 0;
 }
 
 .md-post-meta .date,
