@@ -45,7 +45,7 @@ config.plugins %}
 {% endif %} {% endblock %}
 
 {% block sidebar %}
-  {% if page.meta.date %}
+  {% if page.categories or page.authors %}
     {# This is a blog post - use custom sidebar #}
     {% include "partials/sidebar-post.html" %}
   {% else %}
@@ -55,7 +55,10 @@ config.plugins %}
 {% endblock %}
 
 {% block content %}
-  {% if page.meta.date %}
+  {# Debug template - remove after testing #}
+  {% include "partials/debug-vars.html" %}
+
+  {% if page.categories or page.authors %}
     {# This is a blog post - add custom header #}
     {% include "partials/blog-post-header.html" %}
   {% endif %}
@@ -63,7 +66,7 @@ config.plugins %}
   {# Original content #}
   {{ super() }}
 
-  {% if page.meta.date %}
+  {% if page.categories or page.authors %}
     {# This is a blog post - add custom footer #}
     {% include "partials/blog-post-footer.html" %}
   {% endif %}

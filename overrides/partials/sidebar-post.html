@@ -30,7 +30,10 @@
         <circle cx="12" cy="12" r="10"></circle>
         <polyline points="12 6 12 12 16 14"></polyline>
       </svg>
-      {% if page.meta.readtime %}
+      {% if page.config.readtime %}
+        {% set time = page.config.readtime %}
+        <span>{% if time == 1 %}{{ lang.t("readtime.one") }}{% else %}{{ lang.t("readtime.other") | replace("#", time) }}{% endif %}</span>
+      {% elif page.meta.readtime %}
         <span>{{ page.meta.readtime }} min read</span>
       {% else %}
         <span>5 min read</span>
@@ -43,7 +46,11 @@
         <line x1="8" y1="2" x2="8" y2="6"></line>
         <line x1="3" y1="10" x2="21" y2="10"></line>
       </svg>
-      <time datetime="{{ page.meta.date }}">{{ page.meta.date.strftime('%b %d, %Y') }}</time>
+      {% if page.config.date %}
+        <time datetime="{{ page.config.date.created }}">{{ page.config.date.created | date }}</time>
+      {% elif page.meta.date %}
+        <time datetime="{{ page.meta.date }}">{{ page.meta.date.strftime('%b %d, %Y') }}</time>
+      {% endif %}
     </div>
   </div>
 
