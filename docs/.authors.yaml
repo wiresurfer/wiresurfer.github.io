@@ -2,6 +2,6 @@ authors:
   wiresurfer :
     name: 'Shaishav Kr' # Author name
     description: 'Follow on X @wiresurfer' # Author description
-    avatar: /assets/images/twitter-avatar.jpg 
+    avatar: /assets/images/shaishav-profile.jpg 
     slug: wiresurfer           # Author profile slug
     url: https://x.com/wiresurfer            # Author website URL

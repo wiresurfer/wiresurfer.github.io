@@ -2,7 +2,6 @@ site_name: wiresurfer's library | © shaishav.kr
 site_description:
   Hello there! I'm Shaishav Kr , often known by my internet alias @wiresufer
 site_url: https://blog.shaishav.kr
-copyright: Copyright &copy; 2012 - 2024 Shaishav Kr | @wiresurfer
 
 nav:
   - Home: "index.md"
@@ -39,7 +38,7 @@ theme:
 
 plugins:
   - search
-  - pub-debugger
+  #- pub-debugger
   - awesome-pages:
       collapse_single_pages: false
   - tags:
@@ -49,7 +48,7 @@ plugins:
         - "*excalidraw.md*"
         - "Draft/*"
   - toggle-sidebar
-  - pub-social
+  #- pub-social
   - blog:
       blog_dir: .
       post_dir: "{blog}/Articles"
@@ -66,6 +65,7 @@ plugins:
       authors: true
       authors_file: "{blog}/.authors.yaml"
       pagination_per_page: 16
+
   - rss:
       feeds_filenames:
         json_created: feed.json
@@ -86,8 +86,9 @@ plugins:
       categories:
         - tags # will look into page.meta.tags
         - categories # will also look into page.meta.categori
+  
   - social:
-      enabled: true 
+      enabled: false 
       cards_layout_options:
         background_image: assets/images/parallax-bg.jpg
   #- pub-blog
@@ -100,6 +101,7 @@ plugins:
 
 extra:
   generator: false
+  calendly_url: https://calendly.com/shaishav-armoryshield/quick-meet
   social:
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/shaishavkr
@@ -115,16 +117,25 @@ extra:
       name: X @ wiresurfer
 
 extra_css:
-  - "assets/css/tailwing.min.css"
   - "assets/css/fonts.css"
-  - "assets/css/override.css"
-  - "assets/css/site.css"
-  - "assets/css/nav.css"
+  - "assets/css/variables.css"
+  - "assets/css/base.css"
   - "assets/css/typography.css"
+  - "assets/css/navigation.css"
+  - "assets/css/blog-cards.css"
   - "assets/css/article.css"
-  - "assets/css/list.css"
+  - "assets/css/site.css"
   - "assets/css/responsive.css"
-  #- "assets/css/flowbite.min.css"
+  - "assets/css/tailwind.css"
+  - "assets/css/blog-post-header.css"
+  - "assets/css/blog-post-footer.css"
+  - "assets/css/blog-post-sidebar.css"
+  - "assets/css/print.css"
+  # Tailwind JIT: Run 'npm run build:css' then add: - "assets/css/tailwind.css"
+  # Removed: tailwing.min.css (1.9MB), override.css (consolidated), list.css (→ blog-cards.css)
+
+extra_javascript:
+  - "assets/js/toc.js"
 pub-obsidian:
   backlinks:
     enabled: true
