@@ -60,9 +60,9 @@
 /* Author Card */
 .sidebar-author-card {
   text-align: center;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid rgba(255, 152, 0, 0.1);
-  margin-bottom: 1.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 0.5rem;
 }
 
 .sidebar-author-photo {
