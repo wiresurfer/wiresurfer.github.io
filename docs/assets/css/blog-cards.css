@@ -34,7 +34,7 @@
   width: 100%;
   overflow: hidden;
   border-radius: 6px;
-  background-color: #1a1a1a;
+  /* Removed background-color: #1a1a1a to avoid dark backgrounds */
 }
 
 /* Fallback for browsers without aspect-ratio support */
