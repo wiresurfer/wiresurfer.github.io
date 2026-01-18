@@ -43,3 +43,28 @@ config.plugins %}
 </script>
 
 {% endif %} {% endblock %}
+
+{% block sidebar %}
+  {% if page.meta.date %}
+    {# This is a blog post - use custom sidebar #}
+    {% include "partials/sidebar-post.html" %}
+  {% else %}
+    {# Regular page - use default sidebar #}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% if page.meta.date %}
+    {# This is a blog post - add custom header #}
+    {% include "partials/blog-post-header.html" %}
+  {% endif %}
+
+  {# Original content #}
+  {{ super() }}
+
+  {% if page.meta.date %}
+    {# This is a blog post - add custom footer #}
+    {% include "partials/blog-post-footer.html" %}
+  {% endif %}
+{% endblock %}

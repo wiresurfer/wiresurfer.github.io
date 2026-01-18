@@ -1,0 +1,220 @@
+/* Blog Post Left Sidebar Styles */
+
+.blog-post-sidebar {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding: 1.5rem;
+  background-color: rgba(255, 152, 0, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 152, 0, 0.1);
+}
+
+/* Custom scrollbar for sidebar */
+.blog-post-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.blog-post-sidebar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+.blog-post-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 152, 0, 0.3);
+  border-radius: 3px;
+}
+
+.blog-post-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 152, 0, 0.5);
+}
+
+/* Back Button */
+.sidebar-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+  background-color: rgba(255, 152, 0, 0.1);
+  border: 1px solid rgba(255, 152, 0, 0.25);
+  border-radius: 4px;
+  color: #ff9800;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.sidebar-back-btn:hover {
+  background-color: rgba(255, 152, 0, 0.2);
+  border-color: rgba(255, 152, 0, 0.4);
+  transform: translateX(-3px);
+}
+
+.sidebar-back-btn svg {
+  stroke: currentColor;
+}
+
+/* Author Card */
+.sidebar-author-card {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 152, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-author-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 152, 0, 0.2);
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-author-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e5e5e5;
+  font-family: monospace;
+}
+
+.sidebar-author-bio {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #999;
+  line-height: 1.4;
+}
+
+/* Post Metadata */
+.sidebar-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 152, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.meta-item svg {
+  stroke: #ff9800;
+  flex-shrink: 0;
+}
+
+/* Sidebar Sections */
+.sidebar-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 152, 0, 0.1);
+}
+
+.sidebar-section:last-of-type {
+  border-bottom: none;
+}
+
+.sidebar-section-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666;
+}
+
+/* Categories */
+.sidebar-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar-category-pill {
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+  background-color: rgba(255, 152, 0, 0.1);
+  border: 1px solid rgba(255, 152, 0, 0.25);
+  border-radius: 4px;
+  color: #ff9800;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.sidebar-category-pill:hover {
+  background-color: rgba(255, 152, 0, 0.2);
+  border-color: rgba(255, 152, 0, 0.4);
+  transform: translateX(3px);
+}
+
+/* Tags */
+.sidebar-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.sidebar-tag-pill {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  background-color: rgba(153, 153, 153, 0.1);
+  border: 1px solid rgba(153, 153, 153, 0.25);
+  border-radius: 12px;
+  color: #999;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+/* Share Section */
+.sidebar-share {
+  padding-top: 1.5rem;
+}
+
+.sidebar-share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.5rem;
+  background-color: rgba(255, 152, 0, 0.1);
+  border: 1px solid rgba(255, 152, 0, 0.25);
+  border-radius: 4px;
+  color: #ff9800;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-share-btn:hover {
+  background-color: rgba(255, 152, 0, 0.2);
+  border-color: rgba(255, 152, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.sidebar-share-btn svg {
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+/* Responsive - Hide sidebar on mobile, will add drawer later */
+@media (max-width: 1024px) {
+  .blog-post-sidebar {
+    display: none;
+  }
+}
