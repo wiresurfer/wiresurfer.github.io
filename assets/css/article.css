@@ -1,46 +1,44 @@
 article.md-content__inner.md-typeset {
   flex-grow: 1;
-}
-
-article.md-content__inner.md-typeset {
-  max-width: 70% !important;
-  margin: 0 auto !important;
-}
-
-article.md-content__inner.md-typeset {
-  flex-grow: 1;
-}
-
-article.md-content__inner.md-typeset {
   max-width: 70% !important;
   margin: 0 auto !important;
 }
 
 article.md-content p {
-  margin-bottom: 0.8rem;
+  margin-bottom: var(--spacing-md);
   text-wrap: pretty;
   overflow-wrap: break-word;
-  letter-spacing: 0.03em;
-  font-size: 16px;
-  font-weight: 100;
+  font-family: var(--font-sans); /* Anthropic-style: Clean sans-serif */
+  font-size: 16px; /* Anthropic-style: Compact sizing */
+  font-weight: 400; /* Anthropic-style: Regular weight for readability */
+  line-height: 1.6; /* Anthropic-style: Compact but comfortable */
+  letter-spacing: -0.011em; /* Anthropic-style: Slight tightening */
+  text-align: left; /* Anthropic-style: Clean left alignment */
 }
 
 article.md-content blockquote > p {
-  font-size: 14px !important;
-  font-family: monospace;
-  font-weight: 100;
+  font-size: 15px !important; /* Anthropic-style: Slightly smaller than body */
+  font-family: var(--font-sans); /* Anthropic-style: Clean sans-serif */
+  font-weight: 400;
 }
 article.md-content blockquote {
-  font-size: 14px;
-  font-weight: 100;
+  font-family: var(--font-sans); /* Anthropic-style: Clean sans-serif */
+  font-size: 15px; /* Anthropic-style: Slightly smaller */
+  font-weight: 400;
   text-wrap: pretty;
   overflow-wrap: break-word;
-  border-left-color: var(--md-typeset-a-color);
+  border-left: 4px solid #ff9800; /* Orange accent */
+  background-color: rgba(255, 255, 255, 0.02);
+  font-style: italic;
+  color: #999;
+  padding: var(--spacing-md); /* 16px uniform padding */
+  margin: var(--spacing-lg) 0;
 }
 
 .md-tag {
   color: #ff9800;
 }
+
 .md-content blockquote > a {
   font-weight: 300;
 }
@@ -51,16 +49,102 @@ article.md-typeset > p > img[src*=".svg"] {
   background-color: white;
 }
 
-article.md-typeset > blockquote {
-  color: var(--md-default-fg-color--light);
-  margin-left: 0;
-  margin-right: 0;
-  background: #1c1c1c;
+article.md-typeset > div.mermaid {
   padding: 6px 32px 12px 0px;
   margin: 18px 3rem;
 }
 
-article.md-typeset > div.mermaid {
-  padding: 6px 32px 12px 0px;
-  margin: 18px 3rem;
+/* Task 4.4: Standardize Image and Content Spacing */
+article img,
+.post-content img,
+article.md-typeset img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: var(--spacing-lg) 0; /* 24px top and bottom */
+  display: block;
+}
+
+article figure,
+.post-content figure {
+  margin: var(--spacing-lg) 0;
+}
+
+/* Image captions */
+article figcaption,
+.post-content figcaption {
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  margin-top: var(--spacing-sm);
+  line-height: 1.5;
+}
+
+/* Add subtle shadow to images */
+article img:not(.no-shadow),
+.post-content img:not(.no-shadow) {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Diagrams and illustrations with white backgrounds */
+article img[src*="diagram"],
+article img[src*="illustration"],
+article img[src$=".svg"] {
+  background-color: #fff;
+  padding: 16px;
+}
+
+/* Spacing between content blocks */
+article > * + h2,
+article > * + h3,
+.post-content > * + h2,
+.post-content > * + h3 {
+  margin-top: var(--spacing-xl); /* Larger gap before headings */
+}
+
+article > p + p,
+.post-content > p + p {
+  margin-top: var(--spacing-md);
+}
+
+/* Tables */
+article table,
+.post-content table {
+  margin: var(--spacing-lg) 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+article table th,
+article table td,
+.post-content table th,
+.post-content table td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid #333;
+}
+
+article table th,
+.post-content table th {
+  background-color: #1a1a1a;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* Horizontal rules */
+article hr,
+.post-content hr {
+  margin: var(--spacing-2xl) 0; /* 48px for major breaks */
+  border: none;
+  border-top: 2px solid #333;
+}
+
+/* Video embeds */
+article iframe,
+article video,
+.post-content iframe,
+.post-content video {
+  max-width: 100%;
+  margin: var(--spacing-lg) 0;
+  border-radius: 6px;
 }

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Tailwind components for blog */
+@layer components {
+  .card-hover {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+
+  .gradient-hr {
+    @apply bg-gradient-to-r from-transparent via-accent to-transparent h-px border-0;
+  }
+}

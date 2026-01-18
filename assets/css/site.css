@@ -108,12 +108,21 @@ ul.md-tabs__list {
   text-rendering: optimizelegibility !important;
 }
 
-.md-sidebar--secondary {
-  margin-left: 10ch;
-  left: 5ch;
+/* Left sidebar - removed weird margins */
+.md-sidebar--primary {
+  background-color: transparent; /* Remove weird background */
+  box-shadow: none; /* Remove drop shadow */
+  padding-top: 0; /* Remove weird top margin */
 }
 
-a[href^="http://"]:not(:where(
+.md-sidebar--secondary {
+  /* Removed weird margin-left and left positioning */
+  margin-left: 0;
+  left: auto;
+}
+
+/*
+ * a[href^="http://"]:not(:where(
   [href*="localhost"],
   [href*="blog.shaishav.kr/"],
 )):after,
@@ -129,4 +138,194 @@ a[href^="https://"]:not(:where(
 a.md-social__link:after  {
   padding-left: 0;
   content: ""!important;
+}
+*/  
+  
+/* Task 3.1: Pagination Contrast and Accessibility */
+.md-pagination,
+.pagination,
+nav[aria-label="Pagination"],
+.md-blog-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: var(--spacing-2xl) 0; /* 48px top and bottom */
+  padding: var(--spacing-md) 0;
+}
+
+.md-pagination a,
+.md-pagination span,
+.md-pagination .current,
+.pagination a,
+.pagination span,
+.pagination .current,
+nav[aria-label="Pagination"] a,
+nav[aria-label="Pagination"] span {
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500; /* Medium weight for better readability */
+  transition: all 0.2s ease;
+  min-width: 44px; /* Touch target size */
+  min-height: 44px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* Active/current page */
+.md-pagination .current,
+.md-pagination [aria-current="page"],
+.pagination .current,
+nav[aria-label="Pagination"] [aria-current="page"] {
+  background-color: #ff9800;
+  color: #1a1a1a;
+  font-weight: 700; /* Bold for current page */
+  cursor: default;
+  border: 2px solid #ff9800;
+}
+
+/* Inactive page links */
+.md-pagination a:not(.current),
+.pagination a:not(.current),
+nav[aria-label="Pagination"] a {
+  color: #b0b0b0; /* Improved contrast from #888 to #b0b0b0 - 4.5:1+ ratio */
+  background-color: transparent;
+  border: 1px solid #404040;
+}
+
+.md-pagination a:not(.current):hover,
+.pagination a:not(.current):hover,
+nav[aria-label="Pagination"] a:hover {
+  background-color: rgba(255, 152, 0, 0.1);
+  color: #fff;
+  border-color: #ff9800;
+}
+
+.md-pagination a:not(.current):focus,
+.pagination a:not(.current):focus,
+nav[aria-label="Pagination"] a:focus {
+  outline: 2px solid #ff9800;
+  outline-offset: 2px;
+}
+
+/* Disabled/ellipsis */
+.md-pagination .disabled,
+.md-pagination span:not(.current):not([aria-current]),
+.pagination .disabled,
+nav[aria-label="Pagination"] .disabled {
+  color: #555;
+  cursor: not-allowed;
+  border: 1px solid #2a2a2a;
+}
+
+/* Previous/Next buttons */
+.md-pagination .prev,
+.md-pagination .next,
+.pagination .prev,
+.pagination .next {
+  font-weight: 600;
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 480px) {
+  .md-pagination,
+  .pagination,
+  nav[aria-label="Pagination"] {
+    gap: 8px;
+    margin: var(--spacing-xl) 0;
+  }
+
+  .md-pagination a,
+  .md-pagination span,
+  .pagination a,
+  .pagination span,
+  nav[aria-label="Pagination"] a,
+  nav[aria-label="Pagination"] span {
+    padding: 8px 10px;
+    font-size: 14px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+/* Task 3.2: Table of Contents with Active Section Indicator */
+.md-sidebar--secondary .md-nav,
+.md-nav--secondary,
+.toc {
+  position: sticky;
+  top: 20px;
+}
+
+/* Fix TOC overlap at medium breakpoints */
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .md-sidebar--secondary {
+    display: none; /* Hide TOC at problematic sizes */
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .md-sidebar--secondary {
+    width: 220px; /* Ensure proper width */
+  }
+}
+
+.md-nav--secondary .md-nav__link,
+.toc a,
+nav.toc a {
+  color: #999; /* Muted gray instead of cyan/magenta */
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: block;
+  padding: 4px 8px;
+  margin: 2px 0;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.md-nav--secondary .md-nav__link:hover,
+.toc a:hover,
+nav.toc a:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+}
+
+/* Active section indicator - Task 3.2 */
+.md-nav--secondary .md-nav__link.active,
+.md-nav--secondary .md-nav__link[data-active="true"],
+.toc a.active,
+nav.toc a.active {
+  color: #ff9800; /* Orange for active section */
+  font-weight: 600; /* Semibold for emphasis */
+  background-color: rgba(255, 152, 0, 0.1);
+  border-left: 3px solid #ff9800;
+  padding-left: 13px; /* Compensate for border */
+  margin-left: -3px;
+}
+
+/* Nested ToC items */
+.md-nav--secondary .md-nav__list .md-nav__list,
+.toc ul ul,
+nav.toc ul ul {
+  margin-left: 12px;
+  border-left: 1px solid #333;
+  padding-left: 8px;
+}
+
+/* ToC heading */
+.md-nav--secondary .md-nav__title,
+.toc h2,
+nav.toc h2 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  padding: 4px 8px;
+  margin-bottom: 8px;
 }

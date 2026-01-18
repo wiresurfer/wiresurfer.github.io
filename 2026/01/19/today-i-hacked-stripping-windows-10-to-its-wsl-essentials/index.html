@@ -1,0 +1,5265 @@
+<!--
+  Custom blog post template with Substack-style header and footer
+  Extends Material's blog-post.html structure
+-->
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn how to transform an HP Spectre into a high-performance thin wrapper for WSL and browsing. This post covers a surgical approach to disabling telemetry and bloatware using a custom PowerShell script with built-in safety checkpoints and restoration logic.">
+      
+      
+      
+        <link rel="canonical" href="https://blog.shaishav.kr/2026/01/19/today-i-hacked-stripping-windows-10-to-its-wsl-essentials/">
+      
+      
+        <link rel="prev" href="../../../../2024/09/11/manage-sensitive-api-keys-in-public-dotfiles-using-pgp-and-sops/">
+      
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>Today I Hacked: Stripping Windows 10 to its WSL Essentials - wiresurfer's library | © shaishav.kr</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/css/fonts.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/variables.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/base.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/typography.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/navigation.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/blog-cards.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/article.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/site.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/responsive.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/tailwind.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/blog-post-header.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/blog-post-footer.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/blog-post-sidebar.css">
+    
+      <link rel="stylesheet" href="../../../../assets/css/print.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+<link
+  rel="alternate"
+  type="application/feed+json"
+  title="JSON feed"
+  href="../../../../feed_json_created.json"
+/>
+<link
+  rel="alternate"
+  type="application/feed+json"
+  title="JSON feed of updated content"
+  href="../../../../feed_json_updated.json"
+/>
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,shrink-to-fit=no"
+/>
+<meta name="robots" content="index, follow" />
+<meta name="msapplication-TileColor" content="#2e2e33" />
+
+<!-- <script -->
+<!--   type="text/javascript" -->
+<!--   src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js" -->
+<!-- ></script> -->
+<meta property="og:title" content="Shaishav Kumar" />
+<meta property="og:type" content="website" />
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Shaishav Kumar",
+    "url": "https://blog.shaishav.kr",
+    "description": "",
+    "thumbnailUrl": "https://blog.shaishav.kr/favicon.ico",
+    "sameAs": [
+      "https://github.com/wiresurfer",
+      "https://twitter.com/wiresurfer",
+      "https://www.linkedin.com/in/shaishavkr/"
+    ]
+  }
+</script>
+
+ 
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#today-i-hacked-turning-windows-10-into-a-thin-wrapper-for-wsl" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!--
+  Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Determine classes -->
+
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <!-- Link to home -->
+    <a
+      href="../../../.."
+      title="wiresurfer&#39;s library | © shaishav.kr"
+      class="md-header__button md-logo"
+      aria-label="wiresurfer's library | © shaishav.kr"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../assets/images/wiresurfer-logo.jpeg" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic"></div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            Today I Hacked: Stripping Windows 10 to its WSL Essentials
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette toggle -->
+    
+
+    <!-- User preference: color palette -->
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+  </nav>
+</header>
+<!-- Navigation tabs (sticky) -->
+
+  
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://shaishav.kr"  target="_blank" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tags/" class="md-tabs__link">
+        
+  
+    
+  
+  Tags
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Bookmarks/Books/How%20to%20Win%20Friends%20and%20Influence%20People/" class="md-tabs__link">
+          
+  
+    
+  
+  Bookmarks
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Interests/Finance/FIRE/" class="md-tabs__link">
+          
+  
+    
+  
+  Interests
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="https://photos.shaishav.kr/grid"  target="_blank" class="md-tabs__link">
+        
+  
+    
+  
+  Photography
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../archive/2026/" class="md-tabs__link">
+          
+  
+    
+  
+  Archive
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../category/business/" class="md-tabs__link">
+          
+  
+    
+  
+  Categories
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <!--
+  Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Determine classes -->
+
+
+  
+
+
+
+<!-- Navigation -->
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <!-- Navigation list -->
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://shaishav.kr"  target="_blank" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tags/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tags
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bookmarks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Bookmarks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Books
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Books
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Books/How%20to%20Win%20Friends%20and%20Influence%20People/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Win Friends and Influence People
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Books/Mossad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mossad
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Books/Raw%20%20A%20History%20Of%20India%20Covert%20Operations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raw : A History Of India's Covert Operations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Books/The%20Bhagavad%20Gita%20For%20Millenials/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Bhagavad Gita For Millenials
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Omnivore
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Omnivore
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_1" id="__nav_4_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 01 11
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            2024 01 11
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-01-11/Rebuilding%20Netflix%20Video%20Processing%20Pipeline%20with%20Microservices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rebuilding Netflix Video Processing Pipeline with Microservices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 01 31
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            2024 01 31
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-01-31/COVID%20Test%20Data%20Breach-%201.3%20Million%20Patient%20Records%20Exposed%20Online/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    COVID Test Data Breach: 1.3 Million Patient Records Exposed Online
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-01-31/I%20Just%20Wanted%20Emacs%20to%20Look%20Nice%20%E2%80%94%20Using%2024-Bit%20Color%20in%20Terminals%20%20Chad%20Austin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I Just Wanted Emacs to Look Nice — Using 24 Bit Color in Terminals  Chad Austin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-01-31/I%20Just%20Wanted%20Emacs%20to%20Look%20Nice%20%E2%80%94%20Using%2024-Bit%20Color%20in%20Terminals%20-%20Chad%20Austin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I Just Wanted Emacs to Look Nice — Using 24-Bit Color in Terminals | Chad Austin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-01-31/Preface%20-%20LSM%20in%20a%20Week/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preface - LSM in a Week
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_3" id="__nav_4_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 02 08
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            2024 02 08
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-02-08/How%20we%20got%20fine-tuning%20Mistral-7B%20to%20not%20suck-%20Helix%20Project%20Report%2C%20Feb%202024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How we got fine-tuning Mistral-7B to not suck: Helix Project Report, Feb 2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-02-08/Simple%20Precision%20Time%20Protocol%20at%20Meta%20-%20Engineering%20at%20Meta/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simple Precision Time Protocol at Meta - Engineering at Meta
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_4" id="__nav_4_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 02 26
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            2024 02 26
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-02-26/Excalidraw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Excalidraw
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_5" id="__nav_4_2_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 02 27
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            2024 02 27
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-02-27/%40ASmartBear/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    @ASmartBear
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-02-27/Apache%20Superset%20-%20Hacker%20News/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache Superset | Hacker News
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-02-27/https---zeck.app/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    https://zeck.app
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_6" id="__nav_4_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 02 28
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            2024 02 28
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-02-28/Start%20a%20Profitable%20Side%20Project%20in%202024%20-%20Indie%20Hackers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Start a Profitable Side Project in 2024 - Indie Hackers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_7" id="__nav_4_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 03 05
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            2024 03 05
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-05/a16z%20Consumer%20Abundance%20Agenda/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    a16z Consumer Abundance Agenda
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_8" id="__nav_4_2_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 03 11
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            2024 03 11
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-11/Rogo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rogo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-11/Voxel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Voxel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_9" id="__nav_4_2_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 03 12
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            2024 03 12
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-12/Chief%20AI%20Decks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chief AI Decks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-12/Personal%20Branding%E2%80%94Most%20Important%20Thing%20You%20Do.%20Full%20Video%20AdobeMAX%202023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Branding—Most Important Thing You Do. Full Video AdobeMAX 2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-12/Please%20Stop%20Using%20Google%20Analytics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Please Stop Using Google Analytics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-12/ULTRA.VC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ULTRA.VC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-12/ron0studios-C-Plus-Plus-%20Collection%20of%20various%20algorithms%20in%20mathematics%2C%20machine%20learning%2C%20compu.../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ron0studios/C-Plus-Plus: Collection of various algorithms in mathematics, machine learning, computer science and physics implemented in C++ for educational purposes.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_10" id="__nav_4_2_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 03 17
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            2024 03 17
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-17/Wait...%20PostgreSQL%20can%20do%20WHAT-/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wait... PostgreSQL can do WHAT?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_11" id="__nav_4_2_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 03 18
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            2024 03 18
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-18/Building%20Meta%E2%80%99s%20GenAI%20Infrastructure%20-%20Engineering%20at%20Meta/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Building Meta’s GenAI Infrastructure - Engineering at Meta
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-18/Logarithm-%20A%20logging%20engine%20for%20AI%20training%20workflows%20and%20services%20-%20Engineering%20at%20Meta/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logarithm: A logging engine for AI training workflows and services - Engineering at Meta
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-18/Next.js%20Commerce%20%E2%80%93%20Vercel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Next.js Commerce – Vercel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-18/sanity-io-hydrogen-sanity-demo-%20A%20starter%20for%20Hydrogen%20%2B%20Sanity%20projects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sanity-io/hydrogen-sanity-demo: A starter for Hydrogen + Sanity projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_12" id="__nav_4_2_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024 03 26
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_12">
+            <span class="md-nav__icon md-icon"></span>
+            2024 03 26
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Omnivore/2024-03-26/failsafe-go-failsafe-go-%20Fault%20tolerance%20and%20resilience%20patterns%20for%20Go/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    failsafe-go/failsafe-go: Fault tolerance and resilience patterns for Go
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Podcast
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Podcast
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Podcast/The_Morning_Brief__%5B2023-06-06%5D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Morning Brief  [2023 06 06]
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Podcast/Vedanta_Talks__%5B2019-01-26%5D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16. Bhagavad Gita | Chapter 2 Verse 45 - 47 | Swami Sarvapriyananda
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Videos
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Videos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Videos/Aakrit-Haptik-Varun-Mayya/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Aakrit-Haptik-Varun-Mayya
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Web
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_1" id="__nav_4_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            2024
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_1_1" id="__nav_4_5_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    01 January
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_5_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            01 January
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/01-January/Weekly-Digest-Week-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 05
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_1_2" id="__nav_4_5_1_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    02 February
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_5_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            02 February
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/02-February/Weekly-Digest-Week-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 06
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/02-February/Weekly-Digest-Week-09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 09
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_1_3" id="__nav_4_5_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    03 March
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_5_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            03 March
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/03-March/Weekly-Digest-Week-10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 10
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/03-March/Weekly-Digest-Week-11/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 11
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/03-March/Weekly-Digest-Week-12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 12
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/03-March/Weekly-Digest-Week-13/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 13
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_1_4" id="__nav_4_5_1_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    04 April
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_5_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            04 April
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/04-April/Weekly-Digest-Week-14/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 14
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/04-April/Weekly-Digest-Week-15/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 15
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/04-April/Weekly-Digest-Week-16/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 16
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/04-April/Weekly-Digest-Week-17/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 17
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_1_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_1_5" id="__nav_4_5_1_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    05 May
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_5_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            05 May
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/05-May/Weekly-Digest-Week-18/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 18
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/05-May/Weekly-Digest-Week-20/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 20
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/05-May/Weekly-Digest-Week-21/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 21
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/05-May/Weekly-Digest-Week-22/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 22
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_1_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_1_6" id="__nav_4_5_1_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    06 June
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_5_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            06 June
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Bookmarks/Web/2024/06-June/Weekly-Digest-Week-22/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Weekly Digest Week 22
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Interests
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Interests
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Finance
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Finance
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Finance/FIRE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FIRE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Finance/InvenstmentPhilosophy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InvenstmentPhilosophy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Finance/Investment%20System/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Investment System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Finance/Trading%20%26%20Finanace/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trading &amp; Finanace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1_5" id="__nav_5_1_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Stocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            Stocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Finance/Stocks/ERIS-ErisLifesciencesLtd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ERIS-ErisLifesciencesLtd
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Finance/Stocks/SBCL_ShivalikBimetal/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SBCL_ShivalikBimetal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Geo politics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Geo politics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Geo-politics/Geo-politics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Geo-politics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Geo-politics/Indo-China%20War%20prospects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Indo-China War prospects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LinuxKernel
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            LinuxKernel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/Linux%20Internals%20MOOC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Internals MOOC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3_2" id="__nav_5_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    06.Networking
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            06.Networking
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/06.Networking/06.01%20Life%20of%20a%20Packet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06.01 Life of a Packet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/06.Networking/06.02%20Kernel%20High%20Performance%20Networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06.02 Kernel High Performance Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/06.Networking/06.03%20Bypassing%20the%20Kernel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06.03 Bypassing the Kernel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/06.Networking/06.04%20What%20Should%20I%20use/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06.04 What Should I use
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3_3" id="__nav_5_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    09.Tracing
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            09.Tracing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/09.Tracing/09.xx%20Performance%20Monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09.xx Performance Monitoring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3_4" id="__nav_5_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    10.eBPF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            10.eBPF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/10.eBPF/10.01%20eBPF%20History%2C%20Motivation%20and%20Design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10.01 eBPF History, Motivation and Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/10.eBPF/10.02%20Hello%20eBPF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10.02 Hello eBPF
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/10.eBPF/10.03%20eBPF%20Maps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10.03 eBPF Maps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/10.eBPF/10.04%20XDP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10.04 XDP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/LinuxKernel/10.eBPF/10.05%20eBPF%20%26%20Tracing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10.05 eBPF &amp; Tracing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Photography
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Photography
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Photography/Photography/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Photography
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Photography/Video%20and%20Photography/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Video and Photography
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Spirituality
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Spirituality
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_1" id="__nav_5_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vedanta
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Vedanta
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Interests/Spirituality/Vedanta/Geeta%20Readings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Geeta Readings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://photos.shaishav.kr/grid"  target="_blank" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Photography
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2026/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Categories
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/business/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Business
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/engineering/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Engineering
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/insights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Insights
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On This Page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On This Page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-i-built-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why I Built This
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#who-is-this-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Who is this for?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#my-recomended-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      My recomended workflow.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="My recomended workflow.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-safety-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Safety First
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-dump-the-running-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Dump the "Running" List
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-consult-your-ai-sidekick-or-whoever-you-trust-with-windows-geekdom" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Consult your AI sidekick or whoever you trust with Windows geekdom
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-surgically-neuter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Surgically Neuter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#powershell-script-wiresurfer-win10-slimmerps1" class="md-nav__link">
+    <span class="md-ellipsis">
+      powershell script : wiresurfer-win10-slimmer.ps1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-pros-and-cons" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Pros and Cons
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Pros and Cons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Benefits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-drawbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Drawbacks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-verdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Verdict
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#footnotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Footnotes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+
+    <!-- Left Sidebar - Custom Design -->
+    <div
+      class="md-sidebar md-sidebar--post"
+      data-md-component="sidebar"
+      data-md-type="navigation"
+    >
+      <div class="md-sidebar__scrollwrap">
+        <div class="custom-sidebar md-sidebar__inner md-post" >
+
+          <!-- Back to Index -->
+          <a href="../../../.." class="sidebar-back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <span>Back to Index</span>
+          </a>
+
+          <hr class="sidebar-divider">
+
+          <!-- Author Card - Grid layout -->
+          <div class="sidebar-author-card">
+            
+              <div class="author-photo-col">
+                <img src="/assets/images/shaishav-profile.jpg" alt="Shaishav Kr" class="sidebar-author-img">
+              </div>
+              <div class="author-info-col">
+                <div class="author-name-row"><a href="https://x.com/wiresurfer">Shaishav Kr</a></div>
+                <div class="author-about-row">Engineering & Tech</div>
+              </div>
+            
+          </div>
+
+
+          <!-- Metadata (no label) -->
+          <div class="sidebar-metadata">
+            <div class="meta-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <time datetime="2026-01-19 00:00:00">January 19, 2026</time>
+            </div>
+            
+            <div class="meta-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+              <span>
+                
+                  <a href="../../../../category/engineering/">Engineering</a>, 
+                
+                  <a href="../../../../category/performance/">Performance</a>
+                
+              </span>
+            </div>
+            
+            
+            <div class="meta-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              
+              <span>4 min read</span>
+            </div>
+            
+          </div>
+
+          <hr class="sidebar-divider">
+
+          <!-- Tags Section -->
+          
+          <div class="sidebar-section">
+            <div class="sidebar-section-title">Tags</div>
+            <div class="sidebar-tags">
+              
+                <a href="/tags/#topicwindows-10" class="tag-pill tag-0">
+                  Windows 10
+                </a>
+              
+                <a href="/tags/#topicwsl" class="tag-pill tag-1">
+                  Wsl
+                </a>
+              
+                <a href="/tags/#topicpowershell" class="tag-pill tag-2">
+                  Powershell
+                </a>
+              
+                <a href="/tags/#topicminimalism" class="tag-pill tag-3">
+                  Minimalism
+                </a>
+              
+                <a href="/tags/#topicSystem Optimization" class="tag-pill tag-4">
+                  System Optimization
+                </a>
+              
+            </div>
+          </div>
+          
+
+          <!-- Share Section -->
+          <div class="sidebar-section">
+            <div class="sidebar-section-title">Share</div>
+            <div class="sidebar-share-icons">
+              <button class="share-icon-btn" onclick="navigator.clipboard.writeText(window.location.href).then(() => { this.classList.add('copied'); setTimeout(() => this.classList.remove('copied'), 2000); })" title="Copy link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                </svg>
+              </button>
+              <a href="https://twitter.com/intent/tweet?url=https://blog.shaishav.kr/2026/01/19/today-i-hacked-stripping-windows-10-to-its-wsl-essentials/&text=Today%20I%20Hacked%3A%20Stripping%20Windows%2010%20to%20its%20WSL%20Essentials" target="_blank" rel="noopener" class="share-icon-btn" title="Share on X (Twitter)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <button class="share-icon-btn" onclick="navigator.share ? navigator.share({title: 'Today I Hacked: Stripping Windows 10 to its WSL Essentials', url: window.location.href}) : alert('Share not supported')" title="Share">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                </svg>
+              </button>
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.shaishav.kr/2026/01/19/today-i-hacked-stripping-windows-10-to-its-wsl-essentials/" target="_blank" rel="noopener" class="share-icon-btn" title="Share on LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Related links -->
+          
+
+          <!-- Table of contents, if integrated -->
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Page content with Substack-style header and footer -->
+    <article class="md-content__inner md-typeset">
+
+      <!-- Substack-style Header -->
+      <header class="substack-header">
+        <!-- Category badge -->
+        
+          <a href="../../../../category/engineering/" class="post-category-badge">
+            Engineering
+          </a>
+        
+
+        <!-- Title -->
+        <h1 class="post-title-hero">Today I Hacked: Stripping Windows 10 to its WSL Essentials</h1>
+
+        <!-- Subtitle (optional) -->
+        
+
+        <!-- Tags in header -->
+        
+
+        <!-- Author meta -->
+      </header>
+
+      <!-- Main Content -->
+      
+        
+  
+  
+
+<nav class="md-tags" >
+  
+    
+    
+    
+      <a href="../../../../tags/#topicwindows-10" class="md-tag">topic/windows-10</a>
+    
+  
+    
+    
+    
+      <a href="../../../../tags/#topicwsl" class="md-tag">topic/wsl</a>
+    
+  
+    
+    
+    
+      <a href="../../../../tags/#topicpowershell" class="md-tag">topic/powershell</a>
+    
+  
+    
+    
+    
+      <a href="../../../../tags/#topicminimalism" class="md-tag">topic/minimalism</a>
+    
+  
+    
+    
+    
+      <a href="../../../../tags/#topicsystem-optimization" class="md-tag">topic/System Optimization</a>
+    
+  
+</nav>
+
+
+
+<h1 id="today-i-hacked-turning-windows-10-into-a-thin-wrapper-for-wsl">Today I Hacked: Turning Windows 10 into a "Thin Wrapper" for WSL</h1>
+<p>Lately, I’ve been feeling the "bloat" of Windows 10. I use an <strong>HP Spectre</strong>, a beautiful piece of hardware, but out of the box, it’s crawling with HP-specific analytics, telemetry, and consumer-facing services I simply never touch.</p>
+<!-- more -->
+
+<p>My goal was simple: <strong>I want my laptop to be a thin, high-performance wrapper.</strong> I need exactly two things to work perfectly: a <strong>web browser</strong> and <strong>WSL2 (Windows Subsystem for Linux)</strong>. Everything else is just noise stealing my CPU cycles and RAM.</p>
+<p>So, I built a script to strip it down safely.</p>
+<hr />
+<h3 id="why-i-built-this">Why I Built This</h3>
+<p>When I first reimaged this PC with a fresh copy of Windows 10, I immediately reached for the Chris Titus Tech WinUtil script <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>. It is an incredible tool for bulk cleanup and setting up a baseline optimized environment.</p>
+<p>Most "Windows Debloater" scripts are black boxes—they disable hundreds of things, and you have no idea what might break. I needed something surgical. I wanted to:</p>
+<ol>
+<li><strong>Kill the HP "Insights" and Analytics:</strong> Manufacturer telemetry is often more resource-heavy than Windows telemetry itself.</li>
+<li><strong>Silence the "Consumer" Noise:</strong> I don't need my laptop trying to sync with a Samsung phone, routing SMS messages, or running Xbox Game Services.</li>
+<li><strong>Protect the Virtualization Layer:</strong> I needed a script smart enough to know that if it touches <code>hns</code> or <code>vmcompute</code>, my WSL environment dies.</li>
+</ol>
+<h3 id="who-is-this-for">Who is this for?</h3>
+<ul>
+<li><strong>Developers</strong> who live in the terminal and treat Windows merely as a bootloader for Linux.</li>
+<li><strong>Minimalists</strong> who hate background processes and "telemetry" on principle.</li>
+<li><strong>Laptop Users</strong> on high-end thin-and-lights (like the Spectre or Dell XPS) looking to squeeze out every drop of battery life and thermal headroom.</li>
+</ul>
+<hr />
+<h3 id="my-recomended-workflow">My recomended workflow.</h3>
+<h4 id="step-1-safety-first">Step 1: Safety First</h4>
+<p>Before touching services, I created a full Windows System Restore point. This is your "get out of jail free" card if the OS becomes unstable.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">Checkpoint-Computer</span> <span class="n">-Description</span> <span class="s2">&quot;Before Slimming&quot;</span> <span class="n">-RestorePointType</span> <span class="s2">&quot;MODIFY_SETTINGS&quot;</span>
+</span></code></pre></div>
+<h4 id="step-2-dump-the-running-list"><strong>Step 2: Dump the "Running" List</strong></h4>
+<p>I needed to know exactly what was alive on <em>my</em> specific machine. I ran this to get a clean list of active services:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">Get-Service</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Status</span> <span class="o">-eq</span> <span class="s2">&quot;Running&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">DisplayName</span> <span class="p">|</span> <span class="nb">ft </span><span class="n">-AutoSize</span>
+</span></code></pre></div>
+<h4 id="step-3-consult-your-ai-sidekick-or-whoever-you-trust-with-windows-geekdom"><strong>Step 3: Consult your AI sidekick or whoever you trust with Windows geekdom</strong></h4>
+<p>I fed that list into <strong>Gemini</strong> with a specific prompt:</p>
+<blockquote>
+<p><em>"I want a thin wrapper for WSL and browsing on an HP Spectre. Based on this list of running services, give me a string array of service names that are absolutely safe to disable (HP bloat, telemetry, consumer features) without breaking virtualization or basic networking."</em></p>
+</blockquote>
+<h4 id="step-4-surgically-neuter">Step 4: Surgically Neuter</h4>
+<p>Once I had my string array, I plugged it into my <code>wiresurfer-win10-slimmer</code> script. This script doesn't just kill services; it creates a <strong>service-state YAML file</strong> so I can see exactly what was enabled initially and toggle them back if a specific hardware feature (like the webcam or a sensor) stops working.</p>
+<h3 id="powershell-script-wiresurfer-win10-slimmerps1">powershell script : <code>wiresurfer-win10-slimmer.ps1</code></h3>
+<p>This PowerShell utility doesn't just "nuke" services. It follows a professional workflow: <strong>Checkpoint → Disable → Evaluate → Restore.</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c"># Save as wiresurfer-win10-slimmer.ps1</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">param</span> <span class="p">(</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span> <span class="k">Position</span><span class="p">=</span><span class="n">0</span><span class="p">)]</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="p">[</span><span class="k">ValidateSet</span><span class="p">(</span><span class="s2">&quot;service&quot;</span><span class="p">)]</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="nv">$Action</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span> <span class="k">Position</span><span class="p">=</span><span class="n">1</span><span class="p">)]</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="p">[</span><span class="k">ValidateSet</span><span class="p">(</span><span class="s2">&quot;checkpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;disable&quot;</span><span class="p">,</span> <span class="s2">&quot;restore&quot;</span><span class="p">)]</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="nv">$Command</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$false</span><span class="p">)]</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="p">[</span><span class="k">Alias</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">)]</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="nv">$File</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">)</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c"># The &quot;Thin Wrapper&quot; Target List: HP Bloat, Telemetry, and Consumer Services</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="nv">$BloatServices</span> <span class="p">=</span> <span class="p">@(</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="s2">&quot;HPAppHelperCap&quot;</span><span class="p">,</span> <span class="s2">&quot;HPDiagsCap&quot;</span><span class="p">,</span> <span class="s2">&quot;HPNetworkCap&quot;</span><span class="p">,</span> <span class="s2">&quot;hp-one-agent-service&quot;</span><span class="p">,</span> 
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="s2">&quot;HPSysInfoCap&quot;</span><span class="p">,</span> <span class="s2">&quot;HpTouchpointAnalyticsService&quot;</span><span class="p">,</span> <span class="s2">&quot;SamsungAccountService&quot;</span><span class="p">,</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="s2">&quot;DPS&quot;</span><span class="p">,</span> <span class="s2">&quot;WdiServiceHost&quot;</span><span class="p">,</span> <span class="s2">&quot;WdiSystemHost&quot;</span><span class="p">,</span> <span class="s2">&quot;DusmSvc&quot;</span><span class="p">,</span> <span class="s2">&quot;DiagTrack&quot;</span><span class="p">,</span> <span class="s2">&quot;PcaSvc&quot;</span><span class="p">,</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    <span class="s2">&quot;PhoneSvc&quot;</span><span class="p">,</span> <span class="s2">&quot;SmsRouter&quot;</span><span class="p">,</span> <span class="s2">&quot;TabletInputService&quot;</span><span class="p">,</span> <span class="s2">&quot;Stisvc&quot;</span><span class="p">,</span> <span class="s2">&quot;CDPSvc&quot;</span><span class="p">,</span> 
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    <span class="s2">&quot;ClickToRunSvc&quot;</span><span class="p">,</span> <span class="s2">&quot;GamingServices&quot;</span><span class="p">,</span> <span class="s2">&quot;GamingServicesNet&quot;</span><span class="p">,</span> <span class="s2">&quot;MapsBroker&quot;</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="p">)</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="k">function</span> <span class="nb">Get-Timestamp</span> <span class="p">{</span> <span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="s2">&quot;yyyyMMdd-HHmmss&quot;</span> <span class="p">}</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="k">switch</span> <span class="p">(</span><span class="nv">$Command</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>    <span class="s2">&quot;checkpoint&quot;</span> <span class="p">{</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>        <span class="nv">$timestamp</span> <span class="p">=</span> <span class="nb">Get-Timestamp</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>        <span class="nv">$filename</span> <span class="p">=</span> <span class="s2">&quot;wiresurfer-service-status-$timestamp.yaml&quot;</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>        <span class="nv">$report</span> <span class="p">=</span> <span class="p">@()</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>        <span class="nb">Write-Host</span> <span class="s2">&quot;Creating safety checkpoint...&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Cyan</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$svcName</span> <span class="k">in</span> <span class="nv">$BloatServices</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>            <span class="k">if</span> <span class="p">(</span><span class="nb">Get-Service</span> <span class="nv">$svcName</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>                <span class="nv">$s</span> <span class="p">=</span> <span class="nb">Get-Service</span> <span class="nv">$svcName</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>                <span class="nv">$report</span> <span class="p">+=</span> <span class="s2">&quot;  - name: </span><span class="p">$(</span><span class="nv">$s</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="se">`n</span><span class="s2">    state: </span><span class="p">$(</span><span class="nv">$s</span><span class="p">.</span><span class="n">Status</span><span class="p">)</span><span class="se">`n</span><span class="s2">    startuptype: </span><span class="p">$(</span><span class="nv">$s</span><span class="p">.</span><span class="n">StartType</span><span class="p">)</span><span class="s2">&quot;</span>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>            <span class="p">}</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>        <span class="p">}</span>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>        <span class="s2">&quot;services:</span><span class="se">`n</span><span class="p">$(</span><span class="nv">$report</span> <span class="n">-join</span> <span class="s2">&quot;</span><span class="se">`n</span><span class="s2">&quot;</span><span class="p">)</span><span class="s2">&quot;</span> <span class="p">|</span> <span class="nb">Out-File</span> <span class="nv">$filename</span>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>        <span class="nb">Write-Host</span> <span class="s2">&quot;Checkpoint saved: $filename&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>    <span class="p">}</span>
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>    <span class="s2">&quot;disable&quot;</span> <span class="p">{</span>
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>        <span class="nv">$confirm</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot;Ready to slim down Windows? (y/n)&quot;</span>
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>        <span class="k">if</span> <span class="p">(</span><span class="nv">$confirm</span> <span class="o">-eq</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>            <span class="k">foreach</span> <span class="p">(</span><span class="nv">$svcName</span> <span class="k">in</span> <span class="nv">$BloatServices</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>                <span class="k">if</span> <span class="p">(</span><span class="nb">Get-Service</span> <span class="nv">$svcName</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>                    <span class="nb">Write-Host</span> <span class="s2">&quot;Disabling: $svcName&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Yellow</span>
+</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>                    <span class="nb">Set-Service</span> <span class="nv">$svcName</span> <span class="n">-StartupType</span> <span class="n">Disabled</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>                    <span class="nb">Stop-Service</span> <span class="nv">$svcName</span> <span class="n">-Force</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>                <span class="p">}</span>
+</span><span id="__span-2-52"><a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>            <span class="p">}</span>
+</span><span id="__span-2-53"><a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>            <span class="nb">Write-Host</span> <span class="s2">&quot;🚀 Windows is now a thin wrapper. Enjoy the speed.&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span><span id="__span-2-54"><a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>        <span class="p">}</span>
+</span><span id="__span-2-55"><a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a>    <span class="p">}</span>
+</span><span id="__span-2-56"><a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a>
+</span><span id="__span-2-57"><a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a>    <span class="s2">&quot;restore&quot;</span> <span class="p">{</span>
+</span><span id="__span-2-58"><a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a>        <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$File</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-Error</span> <span class="s2">&quot;Provide a checkpoint file!&quot;</span><span class="p">;</span> <span class="k">break</span> <span class="p">}</span>
+</span><span id="__span-2-59"><a id="__codelineno-2-59" name="__codelineno-2-59" href="#__codelineno-2-59"></a>        <span class="nb">Write-Host</span> <span class="s2">&quot;Restoring from $File...&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Cyan</span>
+</span><span id="__span-2-60"><a id="__codelineno-2-60" name="__codelineno-2-60" href="#__codelineno-2-60"></a>        <span class="nv">$content</span> <span class="p">=</span> <span class="nb">Get-Content</span> <span class="nv">$File</span>
+</span><span id="__span-2-61"><a id="__codelineno-2-61" name="__codelineno-2-61" href="#__codelineno-2-61"></a>        <span class="nv">$currentSvc</span> <span class="p">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="__span-2-62"><a id="__codelineno-2-62" name="__codelineno-2-62" href="#__codelineno-2-62"></a>        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$line</span> <span class="k">in</span> <span class="nv">$content</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-2-63"><a id="__codelineno-2-63" name="__codelineno-2-63" href="#__codelineno-2-63"></a>            <span class="k">if</span> <span class="p">(</span><span class="nv">$line</span> <span class="o">-match</span> <span class="s2">&quot;name: (.*)&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$currentSvc</span> <span class="p">=</span> <span class="nv">$matches</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">Trim</span><span class="p">()</span> <span class="p">}</span>
+</span><span id="__span-2-64"><a id="__codelineno-2-64" name="__codelineno-2-64" href="#__codelineno-2-64"></a>            <span class="k">if</span> <span class="p">(</span><span class="nv">$line</span> <span class="o">-match</span> <span class="s2">&quot;startuptype: (.*)&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-2-65"><a id="__codelineno-2-65" name="__codelineno-2-65" href="#__codelineno-2-65"></a>                <span class="nb">Set-Service</span> <span class="nv">$currentSvc</span> <span class="n">-StartupType</span> <span class="nv">$matches</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">Trim</span><span class="p">()</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-2-66"><a id="__codelineno-2-66" name="__codelineno-2-66" href="#__codelineno-2-66"></a>            <span class="p">}</span>
+</span><span id="__span-2-67"><a id="__codelineno-2-67" name="__codelineno-2-67" href="#__codelineno-2-67"></a>            <span class="k">if</span> <span class="p">(</span><span class="nv">$line</span> <span class="o">-match</span> <span class="s2">&quot;state: Running&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Start-Service</span> <span class="nv">$currentSvc</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span> <span class="p">}</span>
+</span><span id="__span-2-68"><a id="__codelineno-2-68" name="__codelineno-2-68" href="#__codelineno-2-68"></a>        <span class="p">}</span>
+</span><span id="__span-2-69"><a id="__codelineno-2-69" name="__codelineno-2-69" href="#__codelineno-2-69"></a>        <span class="nb">Write-Host</span> <span class="s2">&quot;Restore complete.&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+</span><span id="__span-2-70"><a id="__codelineno-2-70" name="__codelineno-2-70" href="#__codelineno-2-70"></a>    <span class="p">}</span>
+</span><span id="__span-2-71"><a id="__codelineno-2-71" name="__codelineno-2-71" href="#__codelineno-2-71"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="the-pros-and-cons">The Pros and Cons</h3>
+<h4 id="the-benefits"><strong>The Benefits</strong></h4>
+<ul>
+<li><strong>Reduced RAM &amp; CPU Overhead:</strong> By killing the "Insight" analytics and diagnostic hosts, you stop random CPU spikes that usually occur during idle time.</li>
+<li><strong>Privacy:</strong> Fewer "phone home" packets being sent to HP and Microsoft.</li>
+<li><strong>Simplicity:</strong> No more "Phone Link" or "Xbox" popups when you're just trying to compile code.</li>
+</ul>
+<h4 id="the-drawbacks"><strong>The Drawbacks</strong></h4>
+<ul>
+<li><strong>Vendor Features:</strong> If you use HP's specialized "Smart Sense" or custom battery health capping software, disabling all HP services might break those features.</li>
+<li><strong>Manual Troubleshooting:</strong> If you run into a network issue, the "Diagnostic Policy Service" won't be there to "Auto-fix" it for you. You're back to the manual way.</li>
+<li><strong>No Windows Update "Orchestration":</strong> Disabling things like <code>UsoSvc</code> (if added to the list) means you have to be disciplined about manually checking for security patches.</li>
+</ul>
+<h3 id="the-verdict">The Verdict</h3>
+<p>For me, it’s worth it. My HP Spectre now feels like a specialized workstation rather than a consumer gadget. It boots faster, stays cooler, and most importantly, stays out of my way while I work in WSL.</p>
+<p><strong>If you try this, always run the <code>checkpoint</code> command first. Your future self will thank you.</strong></p>
+<h2 id="footnotes">Footnotes</h2>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>WinUtil (Chris Titus Tech): The "Swiss Army Knife" of Windows optimization. This was my first step for initial OS setup.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+
+      <!-- Post Footer -->
+      <footer class="post-footer">
+        <!-- Author Section -->
+        <div class="post-author-section">
+          
+            <div class="author-photo-container">
+              <img src="/assets/images/shaishav-profile.jpg" class="author-photo-round" alt="Shaishav Kr">
+            </div>
+            <div class="author-about">
+              <h4>About Shaishav Kr</h4>
+              <p>Engineering leader and technology enthusiast. Writing about software architecture, platform engineering, and the future of tech.</p>
+              <a href="https://x.com/wiresurfer" class="author-link">Follow @wiresurfer</a>
+            </div>
+          
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; padding: 1.5rem 2rem; background-color: rgba(255, 152, 0, 0.05); border-radius: 8px; align-items: center;">
+  <!-- Left 2/3: Elevator Pitch + Calendly -->
+  <div class="cta-pitch" style="text-align: left;">
+    <h3 style="margin: 0 0 0.75rem 0; font-family: monospace; font-size: 1.25rem; color: #ff9800;">
+      Ship faster. Scale smarter. Win markets.
+    </h3>
+    <p style="color: #ccc; margin: 0 0 1rem 0; font-size: 0.95rem; line-height: 1.5;">
+      From seed-stage chaos to enterprise scale - I've been there. Mentoring engineers, coaching founders, and advising on technical & AI strategy. Let's solve your hardest problems.
+    </p>
+    <a
+      href="https://calendly.com/shaishav-armoryshield/quick-meet"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        display: inline-block;
+        background-color: #ff9800;
+        color: #1a1a1a;
+        padding: 10px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+      "
+      onmouseover="this.style.backgroundColor='#ffa726'; this.style.transform='translateY(-2px)'"
+      onmouseout="this.style.backgroundColor='#ff9800'; this.style.transform='translateY(0)'"
+    >
+      Book a 30-min call
+    </a>
+  </div>
+
+  <!-- Right 1/3: Newsletter Subscription -->
+  <div class="cta-newsletter" style="text-align: left; border-left: 1px solid rgba(255, 152, 0, 0.2); padding-left: 2rem;">
+    <h4 style="margin: 0 0 0.5rem 0; font-family: monospace; font-size: 0.9rem; color: #999;">
+      Weekly insights
+    </h4>
+    <p style="color: #666; margin: 0 0 0.75rem 0; font-size: 0.8rem; line-height: 1.4;">
+      Engineering leadership, AI strategy, and startup lessons.
+    </p>
+    <form
+      action="https://app.convertkit.com/forms/YOUR_FORM_ID/subscriptions"
+      method="post"
+      style="display: flex; flex-direction: column; gap: 0.5rem;"
+    >
+      <input
+        type="email"
+        name="email_address"
+        placeholder="your@email.com"
+        required
+        style="
+          padding: 8px 12px;
+          border: 1px solid rgba(255, 152, 0, 0.3);
+          border-radius: 4px;
+          background-color: rgba(0, 0, 0, 0.3);
+          color: #ccc;
+          font-size: 0.85rem;
+          outline: none;
+        "
+        onfocus="this.style.borderColor='rgba(255, 152, 0, 0.6)'"
+        onblur="this.style.borderColor='rgba(255, 152, 0, 0.3)'"
+      />
+      <button
+        type="submit"
+        style="
+          padding: 8px 12px;
+          background-color: rgba(255, 152, 0, 0.15);
+          border: 1px solid rgba(255, 152, 0, 0.3);
+          border-radius: 4px;
+          color: #ff9800;
+          font-size: 0.85rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        "
+        onmouseover="this.style.backgroundColor='rgba(255, 152, 0, 0.25)'; this.style.borderColor='rgba(255, 152, 0, 0.5)'"
+        onmouseout="this.style.backgroundColor='rgba(255, 152, 0, 0.15)'; this.style.borderColor='rgba(255, 152, 0, 0.3)'"
+      >
+        Subscribe
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Responsive: Stack on mobile -->
+<style>
+  @media (max-width: 768px) {
+    .cta-section {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+    }
+    .cta-newsletter {
+      border-left: none !important;
+      border-top: 1px solid rgba(255, 152, 0, 0.2) !important;
+      padding-left: 0 !important;
+      padding-top: 1.5rem !important;
+    }
+  }
+</style>
+      </footer>
+
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer mt-16">
+  
+  <nav
+    class="md-footer__inner md-grid"
+    aria-label="footer.title"
+  >
+     
+    <a
+      href="../../../../2024/09/11/manage-sensitive-api-keys-in-public-dotfiles-using-pgp-and-sops/"
+      class="md-footer__link md-footer__link--prev"
+      aria-label="Previous: Manage Sensitive API Keys in Public Dotfiles Using PGP and SOPS"
+      rel="prev"
+    >
+      <div class="md-footer__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </div>
+      <div class="md-footer__title">
+        <div class="md-ellipsis">
+          <span class="md-footer__direction"> Previous </span>
+          Manage Sensitive API Keys in Public Dotfiles Using PGP and SOPS
+        </div>
+      </div>
+    </a>
+     
+  </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        <div class="md-footer-copyright__highlight">
+            
+        </div>
+               </div>
+      <style>
+  .footer-section> ul {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+  .footer-section> ul > li {
+    margin-left: 0 !important;
+    padding: 0.5rem !important;
+  }
+
+  .footer-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    padding: 1rem 0 0 0;
+    border-top: 1px solid rgba(255, 152, 0, 0.1);
+    font-family: monospace;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-newsletter h4 {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-newsletter p {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #666;
+    line-height: 1.4;
+  }
+
+  .footer-newsletter form {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .footer-newsletter input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 152, 0, 0.25);
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #ccc;
+    font-size: 0.75rem;
+    font-family: monospace;
+    outline: none;
+  }
+
+  .footer-newsletter input:focus {
+    border-color: rgba(255, 152, 0, 0.5);
+  }
+
+  .footer-newsletter button {
+    padding: 6px 16px;
+    background-color: rgba(255, 152, 0, 0.15);
+    border: 1px solid rgba(255, 152, 0, 0.3);
+    border-radius: 4px;
+    color: #ff9800;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: monospace;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .footer-newsletter button:hover {
+    background-color: rgba(255, 152, 0, 0.25);
+    border-color: rgba(255, 152, 0, 0.5);
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .footer-section h4 {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.75rem;
+    color: #999;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-section ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-section a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: color 0.2s ease;
+    display: inline-block;
+  }
+
+  .footer-section a:hover {
+    color: #ff9800;
+  }
+
+  .footer-social-icons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .footer-social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background-color: rgba(255, 152, 0, 0.1);
+    border: 1px solid rgba(255, 152, 0, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .footer-social-icons a:hover {
+    background-color: rgba(255, 152, 0, 0.2);
+    border-color: rgba(255, 152, 0, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .footer-social-icons svg {
+    width: 16px;
+    height: 16px;
+    fill: #ff9800;
+  }
+
+  .md-footer-copyright__highlight {
+    padding: 0.75rem 0;
+    border-top: 1px solid rgba(255, 152, 0, 0.05);
+    text-align: center;
+    font-size: 0.65rem;
+    color: #555;
+    font-family: monospace;
+    grid-column: span 2;
+
+  }
+
+  @media (max-width: 768px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .footer-links {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
+
+<div class="footer-container">
+  <!-- Left 1/3: Newsletter CTA -->
+  <div class="footer-newsletter">
+    <h4>Stay Updated</h4>
+    <p>Engineering leadership, AI strategy, and startup lessons delivered weekly.</p>
+    <form action="https://app.convertkit.com/forms/YOUR_FORM_ID/subscriptions" method="post">
+      <input type="email" name="email_address" placeholder="your@email.com" required />
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+  <!-- Right 2/3: Links -->
+  <div class="footer-links">
+    <!-- Connect Section -->
+    <div class="footer-section">
+      <h4>Connect</h4>
+      <div class="footer-social-icons">
+        <a href="https://x.com/wiresurfer" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/shaishavkr/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://github.com/wiresurfer" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Affiliations Section -->
+    <div class="footer-section">
+      <h4>Affiliations</h4>
+      <ul>
+        <li><a href="https://www.armory.in/" target="_blank" rel="noopener">Armory</a></li>
+        <li><a href="https://www.rapyuta-robotics.com/careers/" target="_blank" rel="noopener">Rapyuta Robotics</a></li>
+        <li><a href="https://www.microsoft.com/" target="_blank" rel="noopener">Microsoft</a></li>
+      </ul>
+    </div>
+
+    <!-- Research Section -->
+    <div class="footer-section">
+      <h4>Research</h4>
+      <ul>
+        <li><a href="https://dl.acm.org/profile/81466641479" target="_blank" rel="noopener">ACM Digital Library</a></li>
+        <li><a href="https://scholar.google.com/citations?user=Mb-0k1sAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
+      </ul>
+    </div>
+
+    <div class="md-footer-copyright__highlight">
+      Copyright © 2012 - 2024 Shaishav Kr | @wiresurfer
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+</footer>
+<script>
+  !(function (t, e) {
+    var o, n, p, r;
+    e.__SV ||
+      ((window.posthog = e),
+      (e._i = []),
+      (e.init = function (i, s, a) {
+        function g(t, e) {
+          var o = e.split(".");
+          2 == o.length && ((t = t[o[0]]), (e = o[1])),
+            (t[e] = function () {
+              t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
+            });
+        }
+        ((p = t.createElement("script")).type = "text/javascript"),
+          (p.async = !0),
+          (p.src = s.api_host + "/static/array.js"),
+          (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(
+            p,
+            r
+          );
+        var u = e;
+        for (
+          void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
+            u.people = u.people || [],
+            u.toString = function (t) {
+              var e = "posthog";
+              return (
+                "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e
+              );
+            },
+            u.people.toString = function () {
+              return u.toString(1) + ".people (stub)";
+            },
+            o =
+              "capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(
+                " "
+              ),
+            n = 0;
+          n < o.length;
+          n++
+        )
+          g(u, o[n]);
+        e._i.push([i, s, a]);
+      }),
+      (e.__SV = 1));
+  })(document, window.posthog || []);
+  posthog.init("<ph_project_api_key>", {
+    api_host: "https://us.i.posthog.com",
+    person_profiles: "identified_only",
+  });
+</script>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.indexes", "toc.follow", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+        <script src="../../../../assets/js/toc.js"></script>
+      
+        <script src="../../../../assets/javascripts/toggle-sidebar.js" async></script>
+      
+    
+  </body>
+</html>

@@ -2,512 +2,527 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://blog.shaishav.kr/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/04/07/ghost-in-a-shell---what-the-heck-is-a-terminalshelltty/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/04/18/rise-of-internal-developer-portals-idp---part-1/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/08/31/business-of-datacenters---an-india-perspective/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/07/15/deep-dive-into-linux-graphics---from-program-to-pixel/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/08/14/tech-tip---my-wsl2-devsetup-for-terminal-productivity/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/07/22/story-untold-is-a-story-lost/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/07/22/tech-tip---getting-qt5-to-respect-system-wide-dark-mode-and-gtk-theme/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/07/26/tech-tip---make-neovim-python-lsp-play-nice-with-pyenv/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/07/15/visual-programming---promised-utopia-and-the-advent-of-genai/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/06/04/unleash-the-forbidden---enabling-ebpfxdp-for-kernel-tinkering-on-wsl2/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/03/12/practitioners-guide-to-great-project-documentation-feat-readthedocs/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/03/19/productivity-audits--the-fine-art-of-mastering-your-day/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/03/01/startup-cto-impatient-lazy-and-how-i-learned-the-habit-of-plan-sprint-ship-document/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/05/08/aiml-checklist-for-startups/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/05/28/linux-kernel-explained---deep-dive-series-for-system-engineers/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/04/28/booting-up-linux-kernel---linux-for-engineers/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/07/14/designing-async-await-organizations/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/07/15/mastering-efficient-git-workflows-with-stacked-prs/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/05/31/future-of-organizations---post-genai-outlook-and-trends/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/09/10/bike-shedding-and-the-law-of-triviality---lessons-from-the-linux-kernel-conflict/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/09/04/navigating-radical-candor-the-delicate-balance-between-trust-and-honesty/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/2024/09/11/manage-sensitive-api-keys-in-public-dotfiles-using-pgp-and-sops/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://blog.shaishav.kr/2026/01/19/today-i-hacked-stripping-windows-10-to-its-wsl-essentials/</loc>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Books/How%20to%20Win%20Friends%20and%20Influence%20People/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Books/Mossad/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Books/Raw%20%20A%20History%20Of%20India%20Covert%20Operations/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Books/The%20Bhagavad%20Gita%20For%20Millenials/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-01-11/Rebuilding%20Netflix%20Video%20Processing%20Pipeline%20with%20Microservices/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-01-31/COVID%20Test%20Data%20Breach-%201.3%20Million%20Patient%20Records%20Exposed%20Online/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-01-31/I%20Just%20Wanted%20Emacs%20to%20Look%20Nice%20%E2%80%94%20Using%2024-Bit%20Color%20in%20Terminals%20%20Chad%20Austin/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-01-31/I%20Just%20Wanted%20Emacs%20to%20Look%20Nice%20%E2%80%94%20Using%2024-Bit%20Color%20in%20Terminals%20-%20Chad%20Austin/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-01-31/Preface%20-%20LSM%20in%20a%20Week/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-02-08/How%20we%20got%20fine-tuning%20Mistral-7B%20to%20not%20suck-%20Helix%20Project%20Report%2C%20Feb%202024/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-02-08/Simple%20Precision%20Time%20Protocol%20at%20Meta%20-%20Engineering%20at%20Meta/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-02-26/Excalidraw/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-02-27/%40ASmartBear/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-02-27/Apache%20Superset%20-%20Hacker%20News/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-02-27/https---zeck.app/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-02-28/Start%20a%20Profitable%20Side%20Project%20in%202024%20-%20Indie%20Hackers/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-05/a16z%20Consumer%20Abundance%20Agenda/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-11/Rogo/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-11/Voxel/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-12/Chief%20AI%20Decks/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-12/Personal%20Branding%E2%80%94Most%20Important%20Thing%20You%20Do.%20Full%20Video%20AdobeMAX%202023/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-12/Please%20Stop%20Using%20Google%20Analytics/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-12/ULTRA.VC/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-12/ron0studios-C-Plus-Plus-%20Collection%20of%20various%20algorithms%20in%20mathematics%2C%20machine%20learning%2C%20compu.../</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-17/Wait...%20PostgreSQL%20can%20do%20WHAT-/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-18/Building%20Meta%E2%80%99s%20GenAI%20Infrastructure%20-%20Engineering%20at%20Meta/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-18/Logarithm-%20A%20logging%20engine%20for%20AI%20training%20workflows%20and%20services%20-%20Engineering%20at%20Meta/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-18/Next.js%20Commerce%20%E2%80%93%20Vercel/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-18/sanity-io-hydrogen-sanity-demo-%20A%20starter%20for%20Hydrogen%20%2B%20Sanity%20projects/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Omnivore/2024-03-26/failsafe-go-failsafe-go-%20Fault%20tolerance%20and%20resilience%20patterns%20for%20Go/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Podcast/The_Morning_Brief__%5B2023-06-06%5D/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Podcast/Vedanta_Talks__%5B2019-01-26%5D/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Videos/Aakrit-Haptik-Varun-Mayya/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/01-January/Weekly-Digest-Week-05/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/02-February/Weekly-Digest-Week-06/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/02-February/Weekly-Digest-Week-09/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/03-March/Weekly-Digest-Week-10/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/03-March/Weekly-Digest-Week-11/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/03-March/Weekly-Digest-Week-12/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/03-March/Weekly-Digest-Week-13/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/04-April/Weekly-Digest-Week-14/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/04-April/Weekly-Digest-Week-15/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/04-April/Weekly-Digest-Week-16/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/04-April/Weekly-Digest-Week-17/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/05-May/Weekly-Digest-Week-18/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/05-May/Weekly-Digest-Week-20/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/05-May/Weekly-Digest-Week-21/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/05-May/Weekly-Digest-Week-22/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Bookmarks/Web/2024/06-June/Weekly-Digest-Week-22/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Finance/FIRE/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Finance/InvenstmentPhilosophy/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Finance/Investment%20System/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Finance/Trading%20%26%20Finanace/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Finance/Stocks/ERIS-ErisLifesciencesLtd/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Finance/Stocks/SBCL_ShivalikBimetal/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Geo-politics/Geo-politics/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Geo-politics/Indo-China%20War%20prospects/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/Linux%20Internals%20MOOC/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/06.Networking/06.01%20Life%20of%20a%20Packet/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/06.Networking/06.02%20Kernel%20High%20Performance%20Networking/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/06.Networking/06.03%20Bypassing%20the%20Kernel/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/06.Networking/06.04%20What%20Should%20I%20use/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/09.Tracing/09.xx%20Performance%20Monitoring/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/10.eBPF/10.01%20eBPF%20History%2C%20Motivation%20and%20Design/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/10.eBPF/10.02%20Hello%20eBPF/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/10.eBPF/10.03%20eBPF%20Maps/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/10.eBPF/10.04%20XDP/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/LinuxKernel/10.eBPF/10.05%20eBPF%20%26%20Tracing/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Photography/Photography/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Photography/Video%20and%20Photography/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/Interests/Spirituality/Vedanta/Geeta%20Readings/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://blog.shaishav.kr/archive/2026/</loc>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/archive/2024/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/category/engineering/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://blog.shaishav.kr/category/performance/</loc>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/category/management/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/category/business/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/category/insights/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/page/2/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/archive/2024/page/2/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://blog.shaishav.kr/tags/</loc>
-         <lastmod>2024-09-11</lastmod>
+         <lastmod>2026-01-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

@@ -1,0 +1,477 @@
+/* Print-Friendly Styles for PDF Export */
+/* Layout: Header → TOC → Content → Author → CTA */
+
+@media print {
+  /* ===========================================
+     PAGE SETUP
+     =========================================== */
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+
+  @page :first {
+    margin-top: 1cm;
+  }
+
+  /* ===========================================
+     HIDE NAVIGATION AND UI ELEMENTS
+     =========================================== */
+  header.md-header,
+  nav.md-tabs,
+  .md-sidebar--primary,
+  .md-sidebar--post,
+  .md-sidebar--secondary,
+  .md-footer,
+  .md-search,
+  .md-dialog,
+  .md-overlay,
+  button,
+  .post-actions-row,
+  .sidebar-share,
+  .sidebar-share-buttons,
+  .md-top,
+  .md-post__back,
+  .md-post__authors,
+  .md-post__meta,
+  .md-nav__link,
+  .md-tags,
+  [data-md-component="announce"] {
+    display: none !important;
+  }
+
+  /* ===========================================
+     BASE COLORS - DARK GRAY FOR LEGIBILITY
+     =========================================== */
+  body {
+    background: #fff !important;
+    color: #111 !important;  /* Dark gray, not pure black */
+    font-size: 11pt !important;
+    line-height: 1.6 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Reset all colors to dark gray */
+  * {
+    color: #333 !important;
+  }
+
+  /* ===========================================
+     LAYOUT AND CONTENT AREA
+     =========================================== */
+  .md-container,
+  .md-main,
+  .md-content,
+  .md-content--post {
+    background: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  article.md-content__inner {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* ===========================================
+     SUBSTACK HEADER - Keep and style
+     =========================================== */
+  .substack-header {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    border-bottom: 2px solid #999 !important;
+    margin-bottom: 2rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .post-title-hero {
+    color: #1a1a1a !important;  /* Slightly darker for title */
+    font-size: 28pt !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .post-subtitle {
+    color: #555 !important;
+    font-size: 14pt !important;
+    font-style: italic !important;
+  }
+
+  .post-author-meta {
+    margin-top: 1rem !important;
+  }
+
+  .post-meta-line,
+  .post-meta-line time,
+  .post-meta-line span {
+    color: #666 !important;
+    font-size: 10pt !important;
+  }
+
+  .author-name {
+    color: #333 !important;
+    font-weight: 600 !important;
+  }
+
+  .post-category-badge,
+  .post-category-badge a {
+    background-color: #e8e8e8 !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
+    text-decoration: none !important;
+  }
+
+  .author-avatar-large {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ===========================================
+     TABLE OF CONTENTS - Fresh page, end with break
+     =========================================== */
+  .md-nav--secondary,
+  nav.md-nav[data-md-level="0"] {
+    page-break-before: always !important;
+    page-break-after: always !important;
+    padding: 1rem 0 !important;
+  }
+
+  /* TOC title */
+  .md-nav__title {
+    font-size: 14pt !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    border-bottom: 1px solid #ccc !important;
+    padding-bottom: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* TOC links */
+  .md-nav__list {
+    list-style: none !important;
+    padding-left: 0 !important;
+  }
+
+  .md-nav__item {
+    margin: 0.3rem 0 !important;
+  }
+
+  .md-nav__link {
+    display: block !important;
+    color: #333 !important;
+    text-decoration: none !important;
+    font-size: 10pt !important;
+  }
+
+  /* Nested TOC levels */
+  .md-nav__item .md-nav__list {
+    padding-left: 1.5rem !important;
+  }
+
+  /* ===========================================
+     HEADINGS - Avoid page breaks after
+     =========================================== */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    color: #1a1a1a !important;
+  }
+
+  h1 { font-size: 24pt !important; margin-top: 1.5rem !important; }
+  h2 { font-size: 18pt !important; margin-top: 1.25rem !important; border-bottom: 1px solid #ddd !important; padding-bottom: 0.25rem !important; }
+  h3 { font-size: 14pt !important; margin-top: 1rem !important; }
+  h4 { font-size: 12pt !important; margin-top: 0.75rem !important; }
+
+  /* ===========================================
+     PARAGRAPHS AND TEXT - Avoid orphans/widows
+     =========================================== */
+  p {
+    orphans: 4 !important;
+    widows: 4 !important;
+    color: #333 !important;
+    text-align: justify !important;
+    hyphens: auto !important;
+  }
+
+  /* Keep paragraphs with their headings */
+  h1 + p, h2 + p, h3 + p, h4 + p {
+    page-break-before: avoid !important;
+  }
+
+  /* ===========================================
+     LISTS - Avoid breaking within items
+     =========================================== */
+  ul, ol {
+    page-break-inside: avoid !important;
+  }
+
+  li {
+    orphans: 3 !important;
+    widows: 3 !important;
+    color: #333 !important;
+  }
+
+  /* Keep short lists together */
+  ul:has(> li:nth-child(-n+5):last-child),
+  ol:has(> li:nth-child(-n+5):last-child) {
+    page-break-inside: avoid !important;
+  }
+
+  /* ===========================================
+     CODE BLOCKS - Keep together, style for print
+     =========================================== */
+  pre {
+    page-break-inside: avoid !important;
+    background: #f5f5f5 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+    padding: 1rem !important;
+    overflow-x: visible !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    font-size: 9pt !important;
+  }
+
+  pre code {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    color: #333 !important;
+    font-size: 9pt !important;
+  }
+
+  /* Inline code */
+  code {
+    background: #f0f0f0 !important;
+    padding: 2px 4px !important;
+    border-radius: 3px !important;
+    font-size: 9pt !important;
+    color: #333 !important;
+  }
+
+  /* ===========================================
+     IMAGES - Keep with captions
+     =========================================== */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid !important;
+    page-break-before: auto !important;
+    page-break-after: auto !important;
+  }
+
+  figure {
+    page-break-inside: avoid !important;
+    margin: 1rem 0 !important;
+  }
+
+  figcaption {
+    font-size: 9pt !important;
+    color: #666 !important;
+    font-style: italic !important;
+  }
+
+  .author-photo-round,
+  .author-avatar-large {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ===========================================
+     TABLES - Keep together, add borders
+     =========================================== */
+  table {
+    page-break-inside: avoid !important;
+    border-collapse: collapse !important;
+    width: 100% !important;
+    font-size: 9pt !important;
+  }
+
+  th, td {
+    border: 1px solid #999 !important;
+    padding: 0.5rem !important;
+    text-align: left !important;
+  }
+
+  th {
+    background-color: #e8e8e8 !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+  }
+
+  /* ===========================================
+     BLOCKQUOTES - Style for print
+     =========================================== */
+  blockquote {
+    page-break-inside: avoid !important;
+    border-left: 4px solid #999 !important;
+    background-color: #f9f9f9 !important;
+    padding: 0.75rem 1rem !important;
+    margin: 1rem 0 !important;
+    font-style: italic !important;
+  }
+
+  blockquote p {
+    color: #444 !important;
+  }
+
+  /* ===========================================
+     FOOTNOTES - Own page with break
+     =========================================== */
+  .footnotes,
+  .footnote,
+  [role="doc-endnotes"],
+  .md-typeset .footnote {
+    page-break-before: always !important;
+    border-top: 2px solid #999 !important;
+    padding-top: 1rem !important;
+    margin-top: 2rem !important;
+  }
+
+  .footnotes::before,
+  [role="doc-endnotes"]::before {
+    content: "Footnotes" !important;
+    display: block !important;
+    font-size: 14pt !important;
+    font-weight: 700 !important;
+    margin-bottom: 1rem !important;
+    color: #1a1a1a !important;
+  }
+
+  .footnotes ol,
+  [role="doc-endnotes"] ol {
+    font-size: 9pt !important;
+  }
+
+  /* Footnote references */
+  sup a[href^="#fn"],
+  a.footnote-ref {
+    color: #333 !important;
+    text-decoration: none !important;
+  }
+
+  /* ===========================================
+     LINKS - Show URLs for external links
+     =========================================== */
+  a {
+    color: #333 !important;
+    text-decoration: underline !important;
+  }
+
+  a[href^="http"]::after {
+    content: " [" attr(href) "]";
+    font-size: 8pt;
+    color: #666 !important;
+    word-break: break-all;
+  }
+
+  /* Don't show URLs for internal/anchor links */
+  a[href^="#"]::after,
+  a[href^="/"]::after,
+  .post-category-badge a::after,
+  .author-name::after,
+  .author-link::after {
+    content: none !important;
+  }
+
+  /* ===========================================
+     AUTHOR SECTION - Keep together
+     =========================================== */
+  .post-footer {
+    page-break-before: always !important;
+  }
+
+  .post-author-section {
+    page-break-inside: avoid !important;
+    border-top: 2px solid #999 !important;
+    border-bottom: 1px solid #ccc !important;
+    padding: 1.5rem 0 !important;
+    margin: 1rem 0 !important;
+  }
+
+  .post-author-section h4 {
+    color: #1a1a1a !important;
+    font-size: 12pt !important;
+  }
+
+  .post-author-section p {
+    color: #444 !important;
+    font-size: 10pt !important;
+  }
+
+  .author-photo-round {
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 50% !important;
+  }
+
+  .author-link {
+    color: #333 !important;
+  }
+
+  /* ===========================================
+     CTA SECTION - Keep together, minimal styling
+     =========================================== */
+  .cta-section,
+  .footer-container,
+  .convertkit-form {
+    page-break-inside: avoid !important;
+    background-color: #f5f5f5 !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+  }
+
+  .cta-section h4,
+  .footer-container h4 {
+    color: #1a1a1a !important;
+    font-size: 12pt !important;
+  }
+
+  /* Hide form inputs in print */
+  .cta-section input,
+  .cta-section button,
+  .convertkit-form input,
+  .convertkit-form button {
+    display: none !important;
+  }
+
+  /* ===========================================
+     ADMONITIONS/CALLOUTS - Keep together
+     =========================================== */
+  .admonition,
+  .md-typeset .admonition {
+    page-break-inside: avoid !important;
+    border: 1px solid #ccc !important;
+    background: #f9f9f9 !important;
+  }
+
+  .admonition-title {
+    background: #e8e8e8 !important;
+    color: #1a1a1a !important;
+  }
+
+  /* ===========================================
+     UTILITY CLASSES
+     =========================================== */
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  /* Ensure semantic backgrounds are preserved */
+  code, pre, th, .cta-section, .admonition, blockquote {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
