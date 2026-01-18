@@ -23,8 +23,16 @@
           {{ page.authors[0].name }}
         </a>
         <div class="post-meta-line">
-          <time datetime="{{ page.meta.date }}">{{ page.meta.date.strftime('%B %d, %Y') }}</time>
-          {% if page.meta.readtime %}
+          {% if page.config.date %}
+            <time datetime="{{ page.config.date.created }}">{{ page.config.date.created | date }}</time>
+          {% elif page.meta.date %}
+            <time datetime="{{ page.meta.date }}">{{ page.meta.date.strftime('%B %d, %Y') }}</time>
+          {% endif %}
+          {% if page.config.readtime %}
+            <span class="meta-separator">·</span>
+            {% set time = page.config.readtime %}
+            <span class="read-time">{% if time == 1 %}{{ lang.t("readtime.one") }}{% else %}{{ lang.t("readtime.other") | replace("#", time) }}{% endif %}</span>
+          {% elif page.meta.readtime %}
             <span class="meta-separator">·</span>
             <span class="read-time">{{ page.meta.readtime }} min read</span>
           {% endif %}
@@ -35,8 +43,16 @@
       <div class="author-info">
         <a href="https://x.com/wiresurfer" class="author-name">Shaishav Kr</a>
         <div class="post-meta-line">
-          <time datetime="{{ page.meta.date }}">{{ page.meta.date.strftime('%B %d, %Y') }}</time>
-          {% if page.meta.readtime %}
+          {% if page.config.date %}
+            <time datetime="{{ page.config.date.created }}">{{ page.config.date.created | date }}</time>
+          {% elif page.meta.date %}
+            <time datetime="{{ page.meta.date }}">{{ page.meta.date.strftime('%B %d, %Y') }}</time>
+          {% endif %}
+          {% if page.config.readtime %}
+            <span class="meta-separator">·</span>
+            {% set time = page.config.readtime %}
+            <span class="read-time">{% if time == 1 %}{{ lang.t("readtime.one") }}{% else %}{{ lang.t("readtime.other") | replace("#", time) }}{% endif %}</span>
+          {% elif page.meta.readtime %}
             <span class="meta-separator">·</span>
             <span class="read-time">{{ page.meta.readtime }} min read</span>
           {% endif %}
