@@ -1,0 +1,21 @@
+{
+  "name": "wiresurfer-blog",
+  "version": "1.0.0",
+  "description": "Shaishav Kr's blog built with MkDocs Material",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./docs/assets/css/tailwind-input.css -o ./docs/assets/css/tailwind.css --minify",
+    "watch:css": "npx tailwindcss -i ./docs/assets/css/tailwind-input.css -o ./docs/assets/css/tailwind.css --watch",
+    "dev": "npm run watch:css & mkdocs serve",
+    "build": "npm run build:css && mkdocs build"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  },
+  "keywords": [
+    "blog",
+    "mkdocs",
+    "tailwindcss"
+  ],
+  "author": "Shaishav Kr",
+  "license": "MIT"
+}

@@ -1,0 +1,30 @@
+<!-- Blog Post Footer Sections -->
+
+<!-- Author Section (1/3 Photo, 2/3 About) -->
+<div class="post-author-section">
+  <div class="author-photo-container">
+    {% if page.authors %}
+      <img src="{{ page.authors[0].avatar | url }}" class="author-photo-round" alt="{{ page.authors[0].name }}">
+    {% else %}
+      <img src="/assets/images/shaishav-profile.jpg" class="author-photo-round" alt="Shaishav Kr">
+    {% endif %}
+  </div>
+  <div class="author-about">
+    {% if page.authors %}
+      <h4 class="author-name-footer">{{ page.authors[0].name }}</h4>
+      <p class="author-bio">{{ page.authors[0].description }}</p>
+      <a href="{{ page.authors[0].url }}" class="author-link" target="_blank" rel="noopener">
+        Follow @{{ page.authors[0].slug if page.authors[0].slug else 'wiresurfer' }}
+      </a>
+    {% else %}
+      <h4 class="author-name-footer">Shaishav Kr</h4>
+      <p class="author-bio">Follow on X @wiresurfer</p>
+      <a href="https://x.com/wiresurfer" class="author-link" target="_blank" rel="noopener">
+        Follow @wiresurfer
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+<!-- CTA Row (Calendly + Newsletter) -->
+{% include "partials/convertkit.html" %}

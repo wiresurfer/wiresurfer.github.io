@@ -9,3 +9,4 @@ site/
 *.log
 *.zip
 .aider*
+node_modules/*
