@@ -1,0 +1,47 @@
+<header class="substack-header">
+  <!-- Category badge -->
+  {% if page.categories %}
+    <div class="post-category-badge">
+      {{ page.categories[0].title }}
+    </div>
+  {% endif %}
+
+  <!-- Title -->
+  <h1 class="post-title-hero">{{ page.title }}</h1>
+
+  <!-- Subtitle (optional) -->
+  {% if page.meta.subtitle %}
+    <p class="post-subtitle">{{ page.meta.subtitle }}</p>
+  {% endif %}
+
+  <!-- Author meta -->
+  <div class="post-author-meta">
+    {% if page.authors %}
+      <img src="{{ page.authors[0].avatar | url }}" class="author-avatar-large" alt="{{ page.authors[0].name }}">
+      <div class="author-info">
+        <a href="{{ page.authors[0].url }}" class="author-name">
+          {{ page.authors[0].name }}
+        </a>
+        <div class="post-meta-line">
+          <time datetime="{{ page.meta.date }}">{{ page.meta.date.strftime('%B %d, %Y') }}</time>
+          {% if page.meta.readtime %}
+            <span class="meta-separator">·</span>
+            <span class="read-time">{{ page.meta.readtime }} min read</span>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <img src="/assets/images/twitter-avatar.jpg" class="author-avatar-large" alt="Shaishav Kr">
+      <div class="author-info">
+        <a href="https://x.com/wiresurfer" class="author-name">Shaishav Kr</a>
+        <div class="post-meta-line">
+          <time datetime="{{ page.meta.date }}">{{ page.meta.date.strftime('%B %d, %Y') }}</time>
+          {% if page.meta.readtime %}
+            <span class="meta-separator">·</span>
+            <span class="read-time">{{ page.meta.readtime }} min read</span>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</header>

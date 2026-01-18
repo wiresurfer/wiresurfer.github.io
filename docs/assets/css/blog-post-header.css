@@ -1,0 +1,119 @@
+/* Substack-Style Blog Post Header */
+
+.substack-header {
+  max-width: 70ch;
+  margin: 0 auto 3rem;
+  padding: 2rem 0;
+  border-bottom: 2px solid rgba(255, 152, 0, 0.1);
+}
+
+.post-category-badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  background-color: rgba(255, 152, 0, 0.15);
+  border: 1px solid rgba(255, 152, 0, 0.3);
+  border-radius: 4px;
+  color: #ff9800;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.post-title-hero {
+  font-family: var(--font-sans);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 1rem 0;
+  color: #e5e5e5;
+  letter-spacing: -0.02em;
+}
+
+.post-subtitle {
+  font-size: 20px;
+  color: #999;
+  line-height: 1.5;
+  margin: 1rem 0 2rem;
+  font-weight: 400;
+}
+
+.post-author-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.author-avatar-large {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.author-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e5e5e5;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.author-name:hover {
+  color: #ff9800;
+}
+
+.post-meta-line {
+  font-size: 0.875rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.meta-separator {
+  color: #444;
+}
+
+.read-time {
+  color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .substack-header {
+    padding: 1.5rem 1rem;
+  }
+
+  .post-title-hero {
+    font-size: 32px;
+  }
+
+  .post-subtitle {
+    font-size: 18px;
+  }
+
+  .author-avatar-large {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-title-hero {
+    font-size: 28px;
+  }
+
+  .post-subtitle {
+    font-size: 16px;
+  }
+}

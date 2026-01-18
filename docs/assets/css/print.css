@@ -1,0 +1,222 @@
+/* Print-Friendly Styles for PDF Export */
+
+@media print {
+  /* Page setup */
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+
+  /* Hide navigation and UI elements */
+  header.md-header,
+  nav.md-tabs,
+  .md-sidebar--primary,
+  .md-sidebar--secondary,
+  .md-footer,
+  .md-search,
+  .md-dialog,
+  .md-overlay,
+  button,
+  .post-actions-row,
+  .sidebar-share,
+  .md-top {
+    display: none !important;
+  }
+
+  /* Body and content */
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Main content area */
+  article.md-content__inner {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .md-content {
+    margin: 0 !important;
+  }
+
+  /* Substack header - keep visible and styled */
+  .substack-header {
+    page-break-after: avoid;
+    border-bottom: 2px solid #ccc !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .post-title-hero {
+    color: black !important;
+  }
+
+  .post-subtitle,
+  .post-meta-line {
+    color: #555 !important;
+  }
+
+  .author-name {
+    color: black !important;
+  }
+
+  /* Author section - keep */
+  .post-author-section {
+    page-break-before: avoid;
+    page-break-inside: avoid;
+    border-top: 1px solid #ccc !important;
+    border-bottom: 1px solid #ccc !important;
+  }
+
+  .author-name-footer {
+    color: black !important;
+  }
+
+  .author-bio {
+    color: #555 !important;
+  }
+
+  /* CTA section - keep minimal */
+  .cta-section {
+    page-break-before: avoid;
+    page-break-inside: avoid;
+    background-color: #f5f5f5 !important;
+    border: 1px solid #ddd !important;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    color: black !important;
+  }
+
+  h1 {
+    font-size: 32px !important;
+  }
+
+  h2 {
+    font-size: 24px !important;
+  }
+
+  h3 {
+    font-size: 20px !important;
+  }
+
+  /* Paragraphs and lists */
+  p, li {
+    orphans: 3;
+    widows: 3;
+    color: black !important;
+  }
+
+  /* Code blocks */
+  pre, code {
+    page-break-inside: avoid;
+    background: #f5f5f5 !important;
+    border: 1px solid #ddd !important;
+    color: black !important;
+  }
+
+  pre code {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Inline code */
+  code {
+    background: #f0f0f0 !important;
+    padding: 2px 4px !important;
+    border-radius: 3px !important;
+  }
+
+  /* Images */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+  }
+
+  .author-photo-round,
+  .author-avatar-large {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Tables */
+  table {
+    page-break-inside: avoid;
+    border-collapse: collapse !important;
+  }
+
+  table, th, td {
+    border: 1px solid #ddd !important;
+  }
+
+  th {
+    background-color: #f0f0f0 !important;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    page-break-inside: avoid;
+    border-left: 4px solid #ccc !important;
+    background-color: #f9f9f9 !important;
+    color: #555 !important;
+  }
+
+  /* Links - show URLs */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+    word-break: break-all;
+  }
+
+  /* Don't show URLs for anchor links */
+  a[href^="#"]::after {
+    content: none;
+  }
+
+  /* Category pills and badges */
+  .post-category-badge,
+  .category-pill {
+    background-color: #f0f0f0 !important;
+    border-color: #ccc !important;
+    color: black !important;
+  }
+
+  /* Hide "Read" and "Share" buttons */
+  .card-action-btn {
+    display: none !important;
+  }
+
+  /* Ensure good contrast */
+  * {
+    color: black !important;
+    background-color: white !important;
+  }
+
+  /* But preserve some semantic backgrounds */
+  code,
+  pre,
+  .post-category-badge,
+  .category-pill,
+  th,
+  .cta-section {
+    background-color: #f5f5f5 !important;
+  }
+
+  /* Force black text on all backgrounds */
+  * {
+    -webkit-print-color-adjust: economy;
+    print-color-adjust: economy;
+  }
+
+  /* Preserve structure */
+  .md-container {
+    background-color: white !important;
+  }
+}
