@@ -35,6 +35,7 @@ mkdocs-publisher==1.3.1
 mkdocs-rss-plugin==1.12.2
 mkdocs-section-index==0.3.9
 mkdocs-toggle-sidebar-plugin==0.0.3
+mkdocs-exclude==1.0.2
 natsort==8.4.0
 ordered-set==4.1.0
 packaging==24.0
