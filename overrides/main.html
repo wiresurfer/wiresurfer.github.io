@@ -43,31 +43,3 @@ config.plugins %}
 </script>
 
 {% endif %} {% endblock %}
-
-{% block sidebar %}
-  {% if page.categories or page.authors %}
-    {# This is a blog post - use custom sidebar #}
-    {% include "partials/sidebar-post.html" %}
-  {% else %}
-    {# Regular page - use default sidebar #}
-    {{ super() }}
-  {% endif %}
-{% endblock %}
-
-{% block content %}
-  {# Debug template - remove after testing #}
-  {% include "partials/debug-vars.html" %}
-
-  {% if page.categories or page.authors %}
-    {# This is a blog post - add custom header #}
-    {% include "partials/blog-post-header.html" %}
-  {% endif %}
-
-  {# Original content #}
-  {{ super() }}
-
-  {% if page.categories or page.authors %}
-    {# This is a blog post - add custom footer #}
-    {% include "partials/blog-post-footer.html" %}
-  {% endif %}
-{% endblock %}

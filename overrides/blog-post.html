@@ -1,0 +1,307 @@
+<!--
+  Custom blog post template with Substack-style header and footer
+  Extends Material's blog-post.html structure
+-->
+
+{% extends "main.html" %}
+
+{% import "partials/nav-item.html" as item with context %}
+
+<!-- Page content -->
+{% block container %}
+  <div class="md-content md-content--post" data-md-component="content">
+
+    <!-- Left Sidebar - Custom Design -->
+    <div
+      class="md-sidebar md-sidebar--post"
+      data-md-component="sidebar"
+      data-md-type="navigation"
+    >
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+
+          <!-- Back to Blog -->
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="{{ page.parent.url | url }}" class="md-nav__link">
+                  {% include ".icons/material/arrow-left.svg" %}
+                  <span class="md-ellipsis">
+                    {{ lang.t("blog.index") }}
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Author Card - Enhanced -->
+            {% if page.authors %}
+              <div class="md-post__authors md-typeset">
+                {% for author in page.authors %}
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="{{ author.avatar | url }}" alt="{{ author.name }}" />
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        {% if author.url %}
+                          <a href="{{ author.url | url }}">{{ author.name }}</a>
+                        {% else %}
+                          {{ author.name }}
+                        {% endif %}
+                      </strong>
+                      <br />
+                      {{ author.description }}
+                    </span>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <!-- Post Metadata -->
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    {{ lang.t("blog.meta") }}
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+
+                    <!-- Post date -->
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        {% include ".icons/material/calendar.svg" %}
+                        <time
+                          datetime="{{ page.config.date.created }}"
+                          class="md-ellipsis"
+                        >
+                          {{- page.config.date.created | date -}}
+                        </time>
+                      </div>
+                    </li>
+
+                    <!-- Post date updated -->
+                    {% if page.config.date.updated %}
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          {% include ".icons/material/calendar-clock.svg" %}
+                          <time
+                            datetime="{{ page.config.date.updated }}"
+                            class="md-ellipsis"
+                          >
+                            {{- page.config.date.updated | date -}}
+                          </time>
+                        </div>
+                      </li>
+                    {% endif %}
+
+                    <!-- Post categories -->
+                    {% if page.categories %}
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          {% include ".icons/material/bookshelf.svg" %}
+                          <span class="md-ellipsis">
+                            {{ lang.t("blog.categories.in") }}
+                            {% for category in page.categories %}
+                              <a href="{{ category.url | url }}">
+                                {{- category.title -}}
+                              </a>
+                              {%- if loop.revindex > 1 %}, {% endif -%}
+                            {% endfor -%}
+                          </span>
+                        </div>
+                      </li>
+                    {% endif %}
+
+                    <!-- Post readtime -->
+                    {% if page.config.readtime %}
+                      {% set time = page.config.readtime %}
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          {% include ".icons/material/clock-outline.svg" %}
+                          <span class="md-ellipsis">
+                            {% if time == 1 %}
+                              {{ lang.t("readtime.one") }}
+                            {% else %}
+                              {{ lang.t("readtime.other") | replace("#", time) }}
+                            {% endif %}
+                          </span>
+                        </div>
+                      </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+
+            <!-- Tags Section -->
+            {% if page.meta.tags %}
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">Tags</span>
+                </div>
+                <nav class="md-nav">
+                  <div class="sidebar-tags" style="display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0.5rem 0.75rem;">
+                    {% for tag in page.meta.tags %}
+                      <a href="{{ ('/tags/#' ~ tag | replace('/', '')) | url }}" class="md-tag" style="font-size: 0.7rem;">
+                        {{ tag | replace('topic/', '') | replace('-', ' ') | title }}
+                      </a>
+                    {% endfor %}
+                  </div>
+                </nav>
+              </li>
+            </ul>
+            {% endif %}
+
+            <!-- Share Section -->
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">Share</span>
+                </div>
+                <nav class="md-nav">
+                  <div class="sidebar-share-buttons" style="display: flex; gap: 0.5rem; padding: 0.5rem 0.75rem;">
+                    <button onclick="navigator.clipboard.writeText(window.location.href).then(() => { this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000); })"
+                            style="padding: 0.4rem 0.8rem; font-size: 0.7rem; background: rgba(255,152,0,0.1); border: 1px solid rgba(255,152,0,0.3); border-radius: 4px; cursor: pointer; color: #e5e5e5;">
+                      Copy
+                    </button>
+                    <a href="https://twitter.com/intent/tweet?url={{ page.canonical_url }}&text={{ page.title | urlencode }}"
+                       target="_blank" rel="noopener"
+                       style="padding: 0.4rem 0.8rem; font-size: 0.7rem; background: rgba(29,161,242,0.1); border: 1px solid rgba(29,161,242,0.3); border-radius: 4px; text-decoration: none; color: #e5e5e5;">
+                      Tweet
+                    </a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.canonical_url }}"
+                       target="_blank" rel="noopener"
+                       style="padding: 0.4rem 0.8rem; font-size: 0.7rem; background: rgba(0,119,181,0.1); border: 1px solid rgba(0,119,181,0.3); border-radius: 4px; text-decoration: none; color: #e5e5e5;">
+                      LinkedIn
+                    </a>
+                  </div>
+                </nav>
+              </li>
+            </ul>
+
+            <!-- Related links -->
+            {% if page.config.links %}
+              <ul class="md-post__meta md-nav__list">
+                <li class="md-nav__item md-nav__item--section">
+                  <div class="md-post__title">
+                    <span class="md-ellipsis">
+                      {{ lang.t("blog.references") }}
+                    </span>
+                  </div>
+                  <nav class="md-nav">
+                    <ul class="md-nav__list">
+                      {% for nav_item in page.config.links %}
+                        {% set path = "__ref_" ~ loop.index %}
+                        {{ item.render(nav_item, path, 1) }}
+                      {% endfor %}
+                    </ul>
+                  </nav>
+                </li>
+              </ul>
+            {% endif %}
+          </nav>
+
+          <!-- Table of contents, if integrated -->
+          {% if "toc.integrate" in features %}
+            {% include "partials/toc.html" %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Page content with Substack-style header and footer -->
+    <article class="md-content__inner md-typeset">
+
+      <!-- Substack-style Header -->
+      <header class="substack-header">
+        <!-- Category badge -->
+        {% if page.categories %}
+          <div class="post-category-badge">
+            <a href="{{ page.categories[0].url | url }}">{{ page.categories[0].title }}</a>
+          </div>
+        {% endif %}
+
+        <!-- Title -->
+        <h1 class="post-title-hero">{{ page.title }}</h1>
+
+        <!-- Subtitle (optional) -->
+        {% if page.meta.subtitle %}
+          <p class="post-subtitle">{{ page.meta.subtitle }}</p>
+        {% endif %}
+
+        <!-- Author meta -->
+        <div class="post-author-meta">
+          {% if page.authors %}
+            <img src="{{ page.authors[0].avatar | url }}" class="author-avatar-large" alt="{{ page.authors[0].name }}">
+            <div class="author-info">
+              <a href="{{ page.authors[0].url }}" class="author-name">
+                {{ page.authors[0].name }}
+              </a>
+              <div class="post-meta-line">
+                <time datetime="{{ page.config.date.created }}">{{ page.config.date.created | date }}</time>
+                {% if page.config.readtime %}
+                  <span class="meta-separator">·</span>
+                  {% set time = page.config.readtime %}
+                  <span class="read-time">{% if time == 1 %}{{ lang.t("readtime.one") }}{% else %}{{ lang.t("readtime.other") | replace("#", time) }}{% endif %}</span>
+                {% endif %}
+              </div>
+            </div>
+          {% else %}
+            <img src="/assets/images/twitter-avatar.jpg" class="author-avatar-large" alt="Shaishav Kr">
+            <div class="author-info">
+              <a href="https://x.com/wiresurfer" class="author-name">Shaishav Kr</a>
+              <div class="post-meta-line">
+                <time datetime="{{ page.config.date.created }}">{{ page.config.date.created | date }}</time>
+                {% if page.config.readtime %}
+                  <span class="meta-separator">·</span>
+                  {% set time = page.config.readtime %}
+                  <span class="read-time">{% if time == 1 %}{{ lang.t("readtime.one") }}{% else %}{{ lang.t("readtime.other") | replace("#", time) }}{% endif %}</span>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      {% block content %}
+        {% include "partials/content.html" %}
+      {% endblock %}
+
+      <!-- Post Footer -->
+      <footer class="post-footer">
+        <!-- Author Section -->
+        <div class="post-author-section">
+          {% if page.authors %}
+            <div class="author-photo-container">
+              <img src="{{ page.authors[0].avatar | url }}" class="author-photo-round" alt="{{ page.authors[0].name }}">
+            </div>
+            <div class="author-about">
+              <h4>About {{ page.authors[0].name }}</h4>
+              <p>{{ page.authors[0].description }}</p>
+              {% if page.authors[0].url %}
+                <a href="{{ page.authors[0].url }}" class="author-link">Follow @{{ page.authors[0].slug or page.authors[0].name | lower | replace(' ', '') }}</a>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="author-photo-container">
+              <img src="/assets/images/twitter-avatar.jpg" class="author-photo-round" alt="Shaishav Kr">
+            </div>
+            <div class="author-about">
+              <h4>About Shaishav Kr</h4>
+              <p>Engineering leader and technology enthusiast. Writing about software architecture, platform engineering, and the future of tech.</p>
+              <a href="https://x.com/wiresurfer" class="author-link">Follow @wiresurfer</a>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- CTA Section -->
+        {% include "partials/convertkit.html" %}
+      </footer>
+
+    </article>
+  </div>
+{% endblock %}
