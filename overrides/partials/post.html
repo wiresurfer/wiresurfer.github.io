@@ -10,40 +10,11 @@
     style='background-image: url("{{ post.meta.coverImage }}");'
   ></div>
 
-  <header class="md-post__header" style="position: relative; pointer-events: none;">
-    <!-- Post authors -->
-    {% if post.authors %}
-      <nav class="md-post__authors md-typeset">
-        {% for author in post.authors %}
-          <span class="md-author">
-            <img src="{{ author.avatar | url }}" alt="{{ author.name }}" />
-          </span>
-        {% endfor %}
-      </nav>
-    {% else %}
-      <nav class="md-post__authors md-typeset">
-        <span class="md-author">
-          <img
-            src="/assets/images/twitter-avatar.jpg"
-            alt="Shaishav Kr | Follow @wiresurfer on X"
-          />
-        </span>
-      </nav>
-    {% endif %}
-
-    <!-- Draft marker -->
-    {% if post.config.draft %}
-      <div class="md-post__meta md-meta">
-        <span class="md-draft"> {{ lang.t("blog.draft") }} </span>
-      </div>
-    {% endif %}
-  </header>
-
   <div class="card-text" style="position: relative; pointer-events: none;">{{ post.content }}</div>
 
   <!-- Category pills -->
   {% if post.categories %}
-  <div class="card-categories" style="position: relative; z-index: 11; pointer-events: auto; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem;">
+  <div class="card-categories" style="position: relative; z-index: 11; pointer-events: auto; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; padding-left: var(--spacing-md); padding-right: var(--spacing-md);">
     {% set total_cats = post.categories | length %}
     {% if total_cats == 1 %}
       <a href="{{ post.categories[0].url | url }}" class="category-pill">{{ post.categories[0].title }}</a>
@@ -59,14 +30,14 @@
   {% endif %}
 
   <!-- Card footer: date/time + actions -->
-  <div class="card-footer" style="position: relative; z-index: 11; pointer-events: auto; display: flex; align-items: center; justify-content: space-between; margin-top: 0.75rem; gap: 0.75rem;">
+  <div class="card-footer" style="position: relative; z-index: 11; pointer-events: auto; display: flex; align-items: center; justify-content: space-between; margin-top: 0.75rem; gap: 0.75rem; padding-left: var(--spacing-md); padding-right: var(--spacing-md); padding-bottom: var(--spacing-md);">
     <!-- Left: Date and read time -->
-    <div class="card-meta" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: #666;">
+    <div class="card-meta" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; color: #e5e5e5;">
       <time datetime="{{ post.config.date.created }}" style="white-space: nowrap;">
         {{- post.config.date.created | date -}}
       </time>
       {% if post.config.readtime %}
-        <span style="color: #444;">•</span>
+        <span style="color: #999;">•</span>
         {% set time = post.config.readtime %}
         <time style="white-space: nowrap;">
           {% if time == 1 %}{{ lang.t("readtime.one") }}{% else %}{{ lang.t("readtime.other") | replace("#", time) }}{% endif %}
@@ -84,7 +55,7 @@
         style="
           background: none;
           border: 1px solid rgba(255, 152, 0, 0.3);
-          color: #999;
+          color: #e5e5e5;
           padding: 0.35rem 0.65rem;
           border-radius: 4px;
           cursor: pointer;
@@ -95,7 +66,7 @@
           transition: all 0.2s ease;
         "
         onmouseover="this.style.borderColor='rgba(255, 152, 0, 0.6)'; this.style.color='#ff9800'"
-        onmouseout="this.style.borderColor='rgba(255, 152, 0, 0.3)'; this.style.color='#999'"
+        onmouseout="this.style.borderColor='rgba(255, 152, 0, 0.3)'; this.style.color='#e5e5e5'"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="18" cy="5" r="3"></circle>
@@ -114,7 +85,7 @@
         style="
           background: none;
           border: 1px solid rgba(255, 152, 0, 0.3);
-          color: #999;
+          color: #e5e5e5;
           padding: 0.35rem 0.65rem;
           border-radius: 4px;
           text-decoration: none;
@@ -127,7 +98,7 @@
           z-index: 11;
         "
         onmouseover="this.style.borderColor='rgba(255, 152, 0, 0.6)'; this.style.color='#ff9800'"
-        onmouseout="this.style.borderColor='rgba(255, 152, 0, 0.3)'; this.style.color='#999'"
+        onmouseout="this.style.borderColor='rgba(255, 152, 0, 0.3)'; this.style.color='#e5e5e5'"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14"></path>
