@@ -1,9 +1,18 @@
 <style>
+  .footer-section> ul {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+  .footer-section> ul > li {
+    margin-left: 0 !important;
+    padding: 0.5rem !important;
+  }
+
   .footer-container {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 3rem;
-    padding: 2rem 0;
+    padding: 1rem 0 0 0;
     border-top: 1px solid rgba(255, 152, 0, 0.1);
     font-family: monospace;
     max-width: 1200px;
@@ -137,13 +146,14 @@
   }
 
   .md-footer-copyright__highlight {
-    margin-top: 2rem;
     padding: 0.75rem 0;
     border-top: 1px solid rgba(255, 152, 0, 0.05);
     text-align: center;
     font-size: 0.65rem;
     color: #555;
     font-family: monospace;
+    grid-column: span 2;
+
   }
 
   @media (max-width: 768px) {
@@ -206,9 +216,9 @@
         <li><a href="https://scholar.google.com/citations?user=Mb-0k1sAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
       </ul>
     </div>
-  </div>
-</div>
 
-<div class="md-footer-copyright__highlight">
-  Copyright © 2012 - 2024 Shaishav Kr | @wiresurfer
+    <div class="md-footer-copyright__highlight">
+      Copyright © 2012 - 2024 Shaishav Kr | @wiresurfer
+    </div>
+  </div>
 </div>

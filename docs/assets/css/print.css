@@ -45,7 +45,7 @@
      =========================================== */
   body {
     background: #fff !important;
-    color: #333 !important;  /* Dark gray, not pure black */
+    color: #111 !important;  /* Dark gray, not pure black */
     font-size: 11pt !important;
     line-height: 1.6 !important;
     -webkit-print-color-adjust: exact !important;

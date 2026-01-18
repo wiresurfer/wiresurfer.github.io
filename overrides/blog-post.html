@@ -183,7 +183,7 @@
         {% endif %}
 
         <!-- Tags in header -->
-        {% if page.meta.tags %}
+        {% if page.meta.tagsss %}
         <div class="header-tags">
           {% for tag in page.meta.tags %}
             <a href="{{ ('/tags/#' ~ tag | replace('/', '')) | url }}" class="header-tag tag-{{ loop.index0 % 10 }}">
@@ -194,37 +194,6 @@
         {% endif %}
 
         <!-- Author meta -->
-        <div class="post-author-meta">
-          {% if page.authors %}
-            <img src="{{ page.authors[0].avatar | url }}" class="author-avatar-large" alt="{{ page.authors[0].name }}">
-            <div class="author-info">
-              <a href="{{ page.authors[0].url }}" class="author-name">
-                {{ page.authors[0].name }}
-              </a>
-              <div class="post-meta-line">
-                <time datetime="{{ page.config.date.created }}">{{ page.config.date.created | date }}</time>
-                {% if page.config.readtime %}
-                  <span class="meta-separator">·</span>
-                  {% set time = page.config.readtime %}
-                  <span class="read-time">{% if time == 1 %}{{ lang.t("readtime.one") }}{% else %}{{ lang.t("readtime.other") | replace("#", time) }}{% endif %}</span>
-                {% endif %}
-              </div>
-            </div>
-          {% else %}
-            <img src="/assets/images/twitter-avatar.jpg" class="author-avatar-large" alt="Shaishav Kr">
-            <div class="author-info">
-              <a href="https://x.com/wiresurfer" class="author-name">Shaishav Kr</a>
-              <div class="post-meta-line">
-                <time datetime="{{ page.config.date.created }}">{{ page.config.date.created | date }}</time>
-                {% if page.config.readtime %}
-                  <span class="meta-separator">·</span>
-                  {% set time = page.config.readtime %}
-                  <span class="read-time">{% if time == 1 %}{{ lang.t("readtime.one") }}{% else %}{{ lang.t("readtime.other") | replace("#", time) }}{% endif %}</span>
-                {% endif %}
-              </div>
-            </div>
-          {% endif %}
-        </div>
       </header>
 
       <!-- Main Content -->
@@ -249,7 +218,7 @@
             </div>
           {% else %}
             <div class="author-photo-container">
-              <img src="/assets/images/twitter-avatar.jpg" class="author-photo-round" alt="Shaishav Kr">
+              <img src="/assets/images/shaishav-profile.jpg" class="author-photo-round" alt="Shaishav Kr">
             </div>
             <div class="author-about">
               <h4>About Shaishav Kr</h4>

@@ -2,7 +2,6 @@ site_name: wiresurfer's library | © shaishav.kr
 site_description:
   Hello there! I'm Shaishav Kr , often known by my internet alias @wiresufer
 site_url: https://blog.shaishav.kr
-copyright: Copyright &copy; 2012 - 2024 Shaishav Kr | @wiresurfer
 
 nav:
   - Home: "index.md"
