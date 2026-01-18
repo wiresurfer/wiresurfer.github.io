@@ -162,12 +162,23 @@ div.card-text > h2 {
 /* Author avatar - fix clipping */
 .md-post-meta .avatar,
 .blog-card-meta .avatar,
-.md-author__image {
+.md-author__image,
+.md-post__authors img,
+.md-author img {
   width: 24px;
   height: 24px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  display: inline-block;
+  overflow: visible; /* Prevent parent clipping */
+}
+
+/* Ensure avatar container doesn't clip */
+.md-post__authors,
+.md-author {
+  overflow: visible;
+  line-height: 0; /* Remove extra line-height space */
 }
 
 .md-post-meta .date,
