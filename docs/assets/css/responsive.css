@@ -284,3 +284,22 @@
     border: none !important;
   }
 }
+
+/* Blog Card Grid - Responsive breakpoints */
+@media screen and (max-width: 1024px) {
+  .md-blog-grid,
+  .blog-grid,
+  .grid.cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .md-blog-grid,
+  .blog-grid,
+  .grid.cards {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

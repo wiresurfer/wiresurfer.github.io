@@ -115,16 +115,17 @@ extra:
       name: X @ wiresurfer
 
 extra_css:
-  - "assets/css/tailwing.min.css"
   - "assets/css/fonts.css"
-  - "assets/css/override.css"
-  - "assets/css/site.css"
-  - "assets/css/nav.css"
+  - "assets/css/variables.css"
+  - "assets/css/base.css"
   - "assets/css/typography.css"
+  - "assets/css/navigation.css"
+  - "assets/css/blog-cards.css"
   - "assets/css/article.css"
-  - "assets/css/list.css"
+  - "assets/css/site.css"
   - "assets/css/responsive.css"
-  #- "assets/css/flowbite.min.css"
+  # Tailwind JIT: Run 'npm run build:css' then add: - "assets/css/tailwind.css"
+  # Removed: tailwing.min.css (1.9MB), override.css (consolidated), list.css (→ blog-cards.css)
 
 extra_javascript:
   - "assets/js/toc.js"
