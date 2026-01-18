@@ -128,50 +128,21 @@ div.card-text > h2 {
   font-weight: 400;
 }
 
-/* Remove pr-5 padding-right that causes left-stuck appearance */
+/* Remove any Tailwind padding classes that cause left-stuck appearance */
+.card-text.pr-5,
 .card-text > p.pr-5,
 .text-lg.pr-5 {
   padding-right: 0 !important;
 }
 
-/* Ensure card has balanced padding */
-.card-text,
-.md-post-content,
-.blog-card-content {
-  padding: var(--spacing-md); /* 16px all around */
-  padding-left: 12px; /* Slightly less on left for better balance */
-  padding-right: 18px; /* Slightly more on right for better balance */
-  padding-bottom: var(--spacing-sm); /* Reduced bottom padding - was causing extra space */
-}
-
-.md-post.md-post--excerpt a.block.group {
-  margin: 4px 0 0px;
-  display: block;
-  /* Make entire card clickable */
-  position: relative;
+/* Card overlay link styling */
+a.card-overlay-link {
   text-decoration: none;
-  color: inherit;
+  cursor: pointer;
 }
 
-/* Ensure card link covers entire card */
-.md-post.md-post--excerpt {
-  position: relative;
-}
-
-.md-post.md-post--excerpt a.block.group::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-}
-
-/* Ensure text elements are above the clickable overlay */
-.md-post.md-post--excerpt a.block.group * {
-  position: relative;
-  z-index: 2;
+a.card-overlay-link:hover {
+  text-decoration: none;
 }
 
 /* Task 4.2: Blog Card Metadata Layout and Spacing */
